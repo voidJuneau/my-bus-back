@@ -1,21 +1,10 @@
-var GtfsRealtimeBindings = require('gtfs-realtime-bindings');
-var request = require('request');
+const express = require('express')
+const path = require('path')
+const PORT = process.env.PORT || 5000
 
-var requestSettings = {
-  method: 'GET',
-  // url: 'https://opendata.hamilton.ca/GTFS-RT/GTFS_ServiceAlerts.pb',
-  url: 'https://opendata.hamilton.ca/GTFS-RT/GTFS_TripUpdates.pb',
-  // url: 'https://opendata.hamilton.ca/GTFS-RT/GTFS_VehiclePositions.pb',
-  encoding: null
-};
-request(requestSettings, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    var feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(body);
-    console.log(feed.entity)
-    feed.entity.forEach(function(entity) {
-      if (entity.trip_update) {
-        console.log(entity.trip_update);
-      }
-    });
-  }
-});
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
