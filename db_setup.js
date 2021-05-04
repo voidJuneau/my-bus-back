@@ -4,7 +4,7 @@ const readline = require('readline');
 const express = require('express')
 const path = require('path')
 const dotenv = require('dotenv');
-// dotenv.config();
+dotenv.config();
 const PORT = process.env.PORT || 5000
 
 express()
@@ -15,8 +15,10 @@ express()
 
   console.log("process.env.DATABASE_URL: " + process.env.DATABASE_URL)
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgres://postgres:Vlxj134he!@localhost:5432/daohhucgl2gdqd',
-    ssl: process.env.DATABASE_URL ? true : false
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 schema = {
