@@ -15,10 +15,10 @@ express()
 
   console.log("process.env.DATABASE_URL: " + process.env.DATABASE_URL)
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
 });
 
 schema = {
@@ -33,7 +33,7 @@ schema = {
 const run = async() => {
   try {
     const client = await pool.connect();
-    for (const table of schema.keys()) {
+    for (const table of Object.keys(schema)) {
       const result = await client.query(`CREATE TABLE ${table} (${schema[table]})`);
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/db', results );
