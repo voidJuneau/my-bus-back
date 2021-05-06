@@ -22,11 +22,11 @@ const pool = new Pool({
 });
 
 schema = {
-  agency: "agency_id text,agency_name text,agency_url text,agency_timezone text,agency_lang float,agency_phone text,agency_fare_url text",
-  route: "route_id integer,agency_id text,route_short_name integer,route_long_name text,route_desc text,route_type integer,route_url text,route_color text,route_text_color text",
-  stop_time: "trip_id integer,arrival_time text,departure_time text,stop_id integer,stop_sequence integer,stop_headsign interger,pickup_type interger,drop_off_type integer,shape_dist_traveled float,agency_id text",
+  // agency: "agency_id text,agency_name text,agency_url text,agency_timezone text,agency_lang float,agency_phone text,agency_fare_url text",
+  // route: "route_id text,agency_id text,route_short_name integer,route_long_name text,route_desc text,route_type integer,route_url text,route_color text,route_text_color text",
+  // stop_time: "trip_id integer,arrival_time text,departure_time text,stop_id integer,stop_sequence integer,stop_headsign interger,pickup_type interger,drop_off_type integer,shape_dist_traveled float,agency_id text",
   stop: "stop_id integer,stop_code interger,stop_name text,stop_desc text,stop_lat float,stop_lon float ,zone_id integer,stop_url text,location_type integer,parent_station interger,stop_timezone text,wheelchair_boarding integer,agency_id text",
-  trip: "route_id integer,service_id integer,trip_id integer,trip_headsign text,trip_short_name text,direction_id integer,block_id integer,shape_id integer,wheelchair_accessible integer,bikes_allowed integer,agency_id text"
+  trip: "route_id text,service_id integer,trip_id integer,trip_headsign text,trip_short_name text,direction_id integer,block_id integer,shape_id integer,wheelchair_accessible integer,bikes_allowed integer,agency_id text"
 }
 
 
