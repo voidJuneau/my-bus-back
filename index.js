@@ -50,7 +50,7 @@ express()
         // Insert values
         let data;
         try {
-          data = fs.readFileSync(table==="agency"?`burt/${table}.txt`:`burt/${table}s.txt`, 'utf8')
+          data = fs.readFileSync(table==="agency"?`go/${table}.txt`:`go/${table}s.txt`, 'utf8')
         } catch (err) {
           // console.error(err);
           return
