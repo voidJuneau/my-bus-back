@@ -30,10 +30,10 @@ express()
 
   schema = {
     // agency: "agency_id text,agency_name text,agency_url text,agency_timezone text,agency_lang text,agency_phone text,agency_fare_url text,agency_email text",
-    // route: "route_id text,agency_id text,route_short_name text,route_long_name text,route_desc text,route_type integer,route_url text,route_color text,route_text_color text",
+    route: "route_id text,agency_id text,route_short_name text,route_long_name text,route_desc text,route_type integer,route_url text,route_color text,route_text_color text",
     // stop: "stop_id integer,stop_code integer,stop_name text,stop_desc text,stop_lat float,stop_lon float ,zone_id integer,stop_url text,location_type integer,parent_station integer,stop_timezone text,wheelchair_boarding integer,agency_id text",
     // trip: "route_id text,service_id text,trip_id text,trip_headsign text,trip_short_name text,direction_id integer,block_id text,shape_id integer,wheelchair_accessible integer,bikes_allowed integer,agency_id text",
-    stop_time: "trip_id text,arrival_time time,departure_time time,stop_id integer,stop_sequence integer,stop_headsign integer,pickup_type integer,drop_off_type integer,shape_dist_traveled float,agency_id text",
+    // stop_time: "trip_id text,arrival_time time,departure_time time,stop_id integer,stop_sequence integer,stop_headsign integer,pickup_type integer,drop_off_type integer,shape_dist_traveled float,agency_id text",
   }
 
   const run = async() => {
@@ -50,7 +50,7 @@ express()
         // Insert values
         let data;
         try {
-          data = fs.readFileSync(table==="agency"?`go/${table}.txt`:`go/${table}s.txt`, 'utf8')
+          data = fs.readFileSync(table==="agency"?`hsr/${table}.txt`:`hsr/${table}s.txt`, 'utf8')
         } catch (err) {
           // console.error(err);
           return
