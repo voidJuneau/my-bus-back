@@ -10,6 +10,6 @@ const PORT = process.env.PORT || 5000
 app.use('/', routes);
 
 // Turn on that server!
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Listening on ${ PORT }`);
 });
