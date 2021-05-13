@@ -11,8 +11,8 @@ const pool = new Pool({
   }
 });
 
-// /lines
-// /lines?query=q&limit=5&page=1
+// /stops
+// /stops?query=q&limit=5&page=1
 module.exports = async (req, res) => {
   const query = req.query.query;
   let page = parseInt(req.query.page);
@@ -26,14 +26,16 @@ module.exports = async (req, res) => {
   // page is 1 indexed, calculate 0 indexed offset as the total previous items
   const offset = (page - 1) * limit;
 
-  let command = "SELECT * FROM route ";
+  let command = "SELECT * FROM stop ";
   if (query) { 
-    command += `WHERE LOWER(route_id) LIKE LOWER('%${query}%') OR ` +
-                `LOWER(agency_id) LIKE LOWER('%${query}%') OR ` +
-                `LOWER(route_short_name) LIKE LOWER('%${query}%') OR ` +
-                `LOWER(route_long_name) LIKE LOWER('%${query}%') `
+    command += `WHERE LOWER(stop_name) LIKE LOWER('%${query}%') OR ` +
+                `LOWER(stop_desc) LIKE LOWER('%${query}%') `;
+    if (parseInt(query)) {
+      command += `OR stop_id = '${query}' OR ` +
+                  `stop_code = '${query}'`;
+    }
   }
-  command += "ORDER BY agency_id DESC, route_short_name ";
+  command += "ORDER BY agency_id DESC, stop_id ";
   if (limit)
     command += `LIMIT ${limit} OFFSET ${offset}`;
   

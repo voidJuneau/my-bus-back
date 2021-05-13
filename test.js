@@ -11,6 +11,7 @@ describe("top", function () {
      console.log("running something before each test");
   });
   importTest("lines", './test/lines');
+  importTest("stops", './test/stops');
   after(function () {
       console.log("after all tests");
   });
