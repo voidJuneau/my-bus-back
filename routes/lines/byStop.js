@@ -8,15 +8,15 @@ const pool = new Pool({
   }
 });
 
-// /stops/agency_id/route_id
+// /lines/agency_id/stop/stop_id
 module.exports = async (req, res) => {
     const command = 
-    "SELECT DISTINCT s.stop_id, s.stop_code, s.stop_name, s.stop_desc, s.stop_lat, s.stop_lon, s.agency_id " +
+    "SELECT DISTINCT r.route_id, r.agency_id, r.route_short_name, r.route_long_name " +
         "FROM stop AS s " +
         "JOIN stop_time AS st ON (s.stop_id = st.stop_id) " +
         "JOIN trip AS t ON (st.trip_id = t.trip_id) " +
         "JOIN route AS r ON (t.route_id = r.route_id)" +
-        `WHERE r.route_id = '${req.params.routeId}' AND ` +
+        `WHERE s.stop_id = '${req.params.stopId}' AND ` +
           `LOWER(s.agency_id) LIKE LOWER('${req.params.agencyId}')`
   try {
     const client = await pool.connect();

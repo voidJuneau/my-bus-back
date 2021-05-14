@@ -83,7 +83,7 @@ describe('/GET lines', () => {
 describe('/GET a line', () => {
   it('It should GET single lines', (done) => {
     chai.request(server)
-      .get('/lines/hsr/01')
+      .get('/lines/hsr/route/4349')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
@@ -91,12 +91,24 @@ describe('/GET a line', () => {
       });
   });
 
-  it('It should not GET single lines that does not exist', (done) => {
+  it('It should not GET single line that does not exist', (done) => {
     chai.request(server)
-      .get('/lines/hsr/999')
+      .get('/lines/hsr/route/999')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.empty;
+        done();
+      });
+  });
+});
+
+describe('/GET lines by stop', () => {
+  it('It should GET lines with stop id', (done) => {
+    chai.request(server)
+      .get('/lines/hsr/stop/355574')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.length.should.be.eql(2);
         done();
       });
   });

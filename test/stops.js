@@ -93,10 +93,22 @@ describe('/GET a stop', () => {
 
   it('It should not GET single stops that does not exist', (done) => {
     chai.request(server)
-      .get('/stops/hsr/999')
+      .get('/stops/9999')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.empty;
+        done();
+      });
+  });
+});
+
+describe('/GET stops by line', () => {
+  it('It should GET stops on specific line', (done) => {
+    chai.request(server)
+      .get('/stops/go/05210621-16')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
         done();
       });
   });

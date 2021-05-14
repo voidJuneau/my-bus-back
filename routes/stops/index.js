@@ -9,7 +9,7 @@ lines.get('/', all);
 // /stops/stop_id
 lines.get('/:stopId', single);
 
-// /stop/agency_id/route_id
-lines.get('/:agencyId/:route_id', byLine)
+// /stops/agency_id/route_id
+lines.get('/:agencyId/:routeId', byLine)
 
 module.exports = lines;

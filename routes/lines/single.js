@@ -8,14 +8,14 @@ const pool = new Pool({
   }
 });
 
-// /lines/agency_id/route_short_name
+// /lines/agency_id/route_id
 module.exports = async (req, res) => {
   try {
     const client = await pool.connect();
     const result = await client.query(
       `SELECT * FROM route \
         WHERE LOWER(agency_id) = LOWER('${req.params.agencyId}') AND \
-          route_short_name = '${req.params.lineId}'`);
+          route_id = '${req.params.routeId}'`);
     const results = { 'results': (result) ? result.rows : null};
     res.status(200).json( results.results[0] );
   } catch (err) {

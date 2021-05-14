@@ -8,7 +8,7 @@ const pool = new Pool({
   }
 });
 
-// /stop/stop_id
+// /stops/stop_id
 module.exports = async (req, res) => {
   try {
     const client = await pool.connect();
