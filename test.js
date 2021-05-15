@@ -4,15 +4,14 @@ function importTest(name, path) {
   });
 }
 
-var common = require("./test/common");
-
 describe("top", function () {
   beforeEach(function () {
-     console.log("running something before each test");
+     console.log("Starting tests");
   });
   importTest("lines", './test/lines');
   importTest("stops", './test/stops');
+  importTest("arrivals", './test/arrivals');
   after(function () {
-      console.log("after all tests");
+      console.log("All tests finished");
   });
 });
