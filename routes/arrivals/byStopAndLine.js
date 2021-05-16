@@ -58,7 +58,6 @@ module.exports = async (req, res) => {
       res.status(500).json({error: err});
     }
   } else { // go does not provide realtime data. service scheduled data instead
-
     const command = 
     "SELECT DISTINCT st.arrival_time, st.departure_time " +
         "FROM stop_time AS st " +
@@ -85,7 +84,7 @@ module.exports = async (req, res) => {
           // stores only time first, for sorting
           results.push(d);
         });
-        results.sort();
+        results.sort((a, b) => a.valueOf() - b.valueOf());
         results = results.map(d => ({
           arrival: {
             delay: 0,
@@ -99,7 +98,7 @@ module.exports = async (req, res) => {
           scheduleRelationship: "SCHEDULED"
         }))
       }
-      res.status(200).json( results.slice(0,3) );
+      res.status(200).json( results );
     } catch (err) {
       console.error(err);
       res.status(500).json({error: err});
