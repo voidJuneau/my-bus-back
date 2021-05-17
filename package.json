@@ -9,6 +9,7 @@
     "client": "cd front && yarn start",
     "server": "nodemon back/index.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "node back/index.js",
     "heroku-postbuild": "cd front && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
