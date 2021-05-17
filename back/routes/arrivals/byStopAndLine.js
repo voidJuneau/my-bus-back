@@ -39,14 +39,14 @@ module.exports = async (req, res) => {
         const updates = [];
         if (!error && response.statusCode == 200) {
           var feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(body);
-          // console.log(feed.entity[0].tripUpdate.stopTimeUpdate[0])
           feed.entity.forEach(function(entity) {
             if (entity.tripUpdate && entity.tripUpdate.trip.routeId === routeId) {
               entity.tripUpdate.stopTimeUpdate.some(u => {
-                if (u.stopId === stopId) 
+                if (u.stopId === stopId) {
                   updates.push(u);
                   // There are only one update for that stop on one trip
                   return true;
+                }
               });
             }
           });
@@ -98,7 +98,7 @@ module.exports = async (req, res) => {
           scheduleRelationship: "SCHEDULED"
         }))
       }
-      res.status(200).json( results );
+      res.status(200).json( results.slice(0, 3) );
     } catch (err) {
       console.error(err);
       res.status(500).json({error: err});
