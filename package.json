@@ -1,7 +1,10 @@
 
 {
-  "name": "example-create-react-app-express",
-  "version": "1.0.0",
+  "name": "my-bus",
+  "version": "0.1.0",
+  "engines": {
+    "node": "14.16.x"
+  },
   "scripts": {
     "client": "cd front && yarn start",
     "server": "nodemon back/index.js",
