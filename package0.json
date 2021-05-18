@@ -1,0 +1,29 @@
+{
+  "name": "my-bus",
+  "version": "0.1.0",
+  "engines": {
+    "node": "14.16.x"
+  },
+  "scripts": {
+    "client": "cd front && npm start",
+    "server": "nodemon back/index.js",
+    "dev": "concurrently \"nodemon server\" \"npm run client\"",
+    "start": "node back/index.js",
+    "heroku-postbuild": "cd front && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "gtfs-realtime-bindings": "0.0.6",
+    "pg": "^8.6.0",
+    "querystring": "^0.2.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1"
+  }
+}

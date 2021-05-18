@@ -1,29 +1,41 @@
-
 {
-  "name": "my-bus",
+  "name": "bus-front",
   "version": "0.1.0",
-  "engines": {
-    "node": "14.16.x"
+  "private": true,
+  "proxy": "http://localhost:5000/",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "client": "cd front && yarn start",
-    "server": "nodemon back/index.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "node back/index.js",
-    "heroku-postbuild": "cd front && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "start-client": "react-scripts start",
+    "build": "react-scripts build && (cd back && yarn install)",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "start": "cd back && npm start",
+    "dev": "cd back && nodemon start"
   },
-  "dependencies": {
-    "axios": "^0.21.1",
-    "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
-    "ejs": "^3.1.5",
-    "express": "^4.17.1",
-    "gtfs-realtime-bindings": "0.0.6",
-    "pg": "^8.6.0",
-    "querystring": "^0.2.1",
-    "request": "^2.88.2"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "devDependencies": {
-    "concurrently": "^4.0.1"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
