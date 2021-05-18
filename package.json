@@ -10,7 +10,7 @@
     "server": "nodemon back/index.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "node back/index.js",
-    "heroku-postbuild": "cd front && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "cd front && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build"
   },
   "dependencies": {
     "axios": "^0.21.1",
