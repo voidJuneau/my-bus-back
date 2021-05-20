@@ -2,6 +2,8 @@ import React from 'react';
 import { AppBar, Button, Container, IconButton, List, ListItem, ListItemText, makeStyles, 
   Toolbar, Typography } from '@material-ui/core';
 import { Home, MenuIcon } from '@material-ui/icons'; 
+import MenuOption from './MenuOption';
+import StarOutlineOutlinedIcon from '@material-ui/icons/StarOutlineOutlined';
 
 const navLinks = [
     { title: `about us`, path: `/about-us` },
@@ -11,7 +13,7 @@ const navLinks = [
     { title: `faq`, path: `/faq` },
   ]
 
-export default function Navbar() {
+export default function Menu() {
   const classes = useStyles();
 
   return (
@@ -25,6 +27,9 @@ export default function Navbar() {
             <Typography variant="h6" className={classes.title}>
               Show My Bus
             </Typography>
+            <MenuOption label="star">
+              <StarOutlineOutlinedIcon />
+            </MenuOption>
             <List 
               component="nav" 
               aria-labelledby="main navigation"
