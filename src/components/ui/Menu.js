@@ -3,15 +3,11 @@ import { AppBar, Button, Container, IconButton, List, ListItem, ListItemText, ma
   Toolbar, Typography } from '@material-ui/core';
 import { Home, MenuIcon } from '@material-ui/icons'; 
 import MenuOption from './MenuOption';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import StarOutlineOutlinedIcon from '@material-ui/icons/StarOutlineOutlined';
-
-const navLinks = [
-    { title: `about us`, path: `/about-us` },
-    { title: `product`, path: `/product` },
-    { title: `blog`, path: `/blog` },
-    { title: `contact`, path: `/contact` },
-    { title: `faq`, path: `/faq` },
-  ]
+import DirectionsBusIcon from '@material-ui/icons/DirectionsBus';
+import RoomIcon from '@material-ui/icons/Room';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 export default function Menu() {
   const classes = useStyles();
@@ -19,28 +15,27 @@ export default function Menu() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar disableGutters>
           <Container className={classes.navbarDisplayFlex}>
-            <IconButton edge="start" color="inherit" aria-label="home">
-              <Home fontSize="large" />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Show My Bus
-            </Typography>
-            <MenuOption label="star">
-              <StarOutlineOutlinedIcon />
-            </MenuOption>
             <List 
               component="nav" 
               aria-labelledby="main navigation"
               className={classes.navDisplayFlex} >
-              {navLinks.map(({ title, path }) => (
-                <a href={path} key={title} className={classes.linkA}>
-                  <ListItem button>
-                    <ListItemText primary={title} className={classes.linkText} />
-                  </ListItem>
-                </a>
-              ))}
+              <MenuOption label="Search" path="/search">
+                <SearchOutlinedIcon fontSize="large" />
+              </MenuOption>
+              <MenuOption label="Favourate" path="/favourate">
+                <StarOutlineOutlinedIcon fontSize="large" />
+              </MenuOption>
+              <MenuOption label="Lines" path="/lines">
+                <DirectionsBusIcon fontSize="large" />
+              </MenuOption>
+              <MenuOption label="Stops" path="/stops">
+                <RoomIcon fontSize="large" />
+              </MenuOption>
+              <MenuOption label="LogIn" path="/memeber">
+                <LockOutlinedIcon fontSize="large" />
+              </MenuOption>
             </List>
           </Container>
         </Toolbar>
