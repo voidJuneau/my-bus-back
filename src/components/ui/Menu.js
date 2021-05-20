@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Button, Container, IconButton, List, ListItem, ListItemText, makeStyles, 
+import { AppBar, Button, createMuiTheme, Grid, IconButton, List, ListItem, ListItemText, makeStyles, 
   Toolbar, Typography } from '@material-ui/core';
 import { Home, MenuIcon } from '@material-ui/icons'; 
 import MenuOption from './MenuOption';
@@ -16,28 +16,38 @@ export default function Menu() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar disableGutters>
-          <Container className={classes.navbarDisplayFlex}>
+          <Grid container className={classes.navbarDisplayFlex}>
             <List 
               component="nav" 
               aria-labelledby="main navigation"
               className={classes.navDisplayFlex} >
-              <MenuOption label="Search" path="/search">
-                <SearchOutlinedIcon fontSize="large" />
-              </MenuOption>
-              <MenuOption label="Favourate" path="/favourate">
-                <StarOutlineOutlinedIcon fontSize="large" />
-              </MenuOption>
-              <MenuOption label="Lines" path="/lines">
-                <DirectionsBusIcon fontSize="large" />
-              </MenuOption>
-              <MenuOption label="Stops" path="/stops">
-                <RoomIcon fontSize="large" />
-              </MenuOption>
-              <MenuOption label="LogIn" path="/memeber">
-                <LockOutlinedIcon fontSize="large" />
-              </MenuOption>
+              <Grid item xs>
+                <MenuOption label="Search" path="/search">
+                  <SearchOutlinedIcon fontSize="large" />
+                </MenuOption>
+              </Grid>
+              <Grid item xs>
+                <MenuOption label="Favourate" path="/favourate">
+                  <StarOutlineOutlinedIcon fontSize="large" />
+                </MenuOption>
+              </Grid>
+              <Grid item xs>
+                <MenuOption label="Lines" path="/lines">
+                  <DirectionsBusIcon fontSize="large" />
+                </MenuOption>
+              </Grid>
+              <Grid item xs>
+                <MenuOption label="Stops" path="/stops">
+                  <RoomIcon fontSize="large" />
+                </MenuOption>
+              </Grid>
+              <Grid item xs>
+                <MenuOption label="LogIn" path="/memeber">
+                  <LockOutlinedIcon fontSize="large" />
+                </MenuOption>
+              </Grid>
             </List>
-          </Container>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>
@@ -46,8 +56,8 @@ export default function Menu() {
 
 const useStyles = makeStyles((theme) => ({
   navbarDisplayFlex: {
-    display: `flex`,
-    justifyContent: `space-between`
+    display: "flex",
+    justifyContent: "space-between"
   },
   root: {
     flexGrow: 1,
@@ -60,13 +70,14 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center"
   },
   navDisplayFlex: {
-    display: `flex`,
-    justifyContent: `space-between`
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%"
   },
   linkText: {
-    textDecoration: `none`,
-    textTransform: `uppercase`,
-    color: `white`
+    textDecoration: "none",
+    textTransform: "uppercase",
+    color: "white"
   },
   linkA: {
     textDecoration: "none"

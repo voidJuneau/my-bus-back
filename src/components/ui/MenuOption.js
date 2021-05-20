@@ -38,5 +38,6 @@ const useStyles = makeStyles( theme => ({
         textAlign: "center",
         paddingLeft: "8px",
         paddingRight: "8px",
+        justifyContent: "center"
     }
 }));
