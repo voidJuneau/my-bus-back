@@ -5,14 +5,14 @@ process.env.PORT = 5001;
 //Require the dev-dependencies
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server');
+const server = require('../index');
 const should = chai.should();
 chai.use(chaiHttp);
 
 describe('/GET arrivals', () => {
   it('It should GET arrivals on a stop of a non-go line', (done) => {
     chai.request(server)
-      .get('/arrivals/hsr/stop/1499/route/4421')
+      .get('/all/arrivals/hsr/stop/1499/route/4421')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -22,7 +22,7 @@ describe('/GET arrivals', () => {
 
   it('It should GET arrivals on a stop of a go line', (done) => {
     chai.request(server)
-      .get('/arrivals/go/stop/141/route/05210621-16')
+      .get('/all/arrivals/go/stop/141/route/05210621-16')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');

@@ -5,14 +5,14 @@ process.env.PORT = 5001;
 //Require the dev-dependencies
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server');
+const server = require('../index');
 const should = chai.should();
 chai.use(chaiHttp);
 
 describe('/GET lines', () => {
   it('It should GET all the lines', (done) => {
     chai.request(server)
-      .get('/lines')
+      .get('/all/lines')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -23,7 +23,7 @@ describe('/GET lines', () => {
 
   it('It should GET lines that meets search query', (done) => {
     chai.request(server)
-      .get('/lines?query=go')
+      .get('/all/lines?query=go')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -34,7 +34,7 @@ describe('/GET lines', () => {
 
   it('It should GET empty array of no lines', (done) => {
     chai.request(server)
-      .get('/lines?query=z')
+      .get('/all/lines?query=z')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');

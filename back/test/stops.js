@@ -5,14 +5,14 @@ process.env.PORT = 5001;
 //Require the dev-dependencies
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server');
+const server = require('../index');
 const should = chai.should();
 chai.use(chaiHttp);
 
 describe('/GET stops', () => {
   it('It should GET all the stops', (done) => {
     chai.request(server)
-      .get('/stops')
+      .get('/all/stops')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -23,7 +23,7 @@ describe('/GET stops', () => {
 
   it('It should GET stops that meets search query', (done) => {
     chai.request(server)
-      .get('/stops?query=king')
+      .get('/all/stops?query=king')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -34,7 +34,7 @@ describe('/GET stops', () => {
 
   it('It should GET empty array of no stops', (done) => {
     chai.request(server)
-      .get('/stops?query=zz')
+      .get('/all/stops?query=zz')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -45,7 +45,7 @@ describe('/GET stops', () => {
 
   it('It should GET stops of the given limit size', (done) => {
     chai.request(server)
-      .get('/stops?limit=3')
+      .get('/all/stops?limit=3')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -56,7 +56,7 @@ describe('/GET stops', () => {
 
   it('It should GET stops on the given page (with offset)', (done) => {
     chai.request(server)
-      .get('/stops?page=2')
+      .get('/all/stops?page=2')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -67,7 +67,7 @@ describe('/GET stops', () => {
 
   it('It should GET stops with given query, page, and limit', (done) => {
     chai.request(server)
-      .get('/stops?query=hi&page=2&limit=2')
+      .get('/all/stops?query=hi&page=2&limit=2')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -80,7 +80,7 @@ describe('/GET stops', () => {
 describe('/GET a stop', () => {
   it('It should GET single stops', (done) => {
     chai.request(server)
-      .get('/stops/1169')
+      .get('/all/stops/1169')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
@@ -102,7 +102,7 @@ describe('/GET a stop', () => {
 describe('/GET stops by line', () => {
   it('It should GET stops on specific line', (done) => {
     chai.request(server)
-      .get('/stops/go/05210621-16')
+      .get('/all/stops/go/05210621-16')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');

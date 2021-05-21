@@ -33,10 +33,8 @@ export default function Side() {
         </Route>
       </Switch>
       <Switch>
-        <Route path="/">
-          <div>
-            this and that
-          </div>
+        <Route path="/search" exact>
+          <Lines />
         </Route>
       </Switch>
     </div>
