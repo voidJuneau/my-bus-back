@@ -1,15 +1,44 @@
 import React from "react";
+import { Switch, Route } from 'react-router-dom'
 import { Container } from "@material-ui/core";
 
 import Menu from "./Menu";
+import Favourate from "../pages/Favourate";
+import Lines from "../pages/Lines";
+import Stops from "../pages/Stops";
+import Member from "../pages/Member";
 
 export default function Side() {
   return (
     <div> 
       <Menu />
-      <div>
-        this and that
-      </div>
+      <Switch>
+        <Route path="/favourate">
+          <Favourate />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/lines">
+          <Lines />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/stops">
+          <Stops />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/member">
+          <Member />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/">
+          <div>
+            this and that
+          </div>
+        </Route>
+      </Switch>
     </div>
   )
 }
