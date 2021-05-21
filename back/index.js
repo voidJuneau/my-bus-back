@@ -11,8 +11,10 @@ const buildPath = path.join(__dirname, '..', 'build');
 app.use(express.static(buildPath));
 
 //  Connect all our routes to our application
-app.use('/', routes);
+app.use('/api', routes);
 
 const server = app.listen(PORT, () => {
   console.log(`Listening on ${ PORT }`);
 });
+
+module.exports = server;
