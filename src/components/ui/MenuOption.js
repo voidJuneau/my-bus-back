@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Grid, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
+import { Grid, ListItem, ListItemText, makeStyles } from "@material-ui/core";
 
 export default function MenuOption({ children, label, path }) {
   const classes = useStyles();
@@ -19,9 +19,7 @@ export default function MenuOption({ children, label, path }) {
       className={classes.listItem}>
       <Grid Container>
         <Grid item>
-          {/* <ListItemIcon> */}
           {children}
-          {/* </ListItemIcon> */}
         </Grid>
         <Grid item>
           <ListItemText>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 
 const containerStyle = {

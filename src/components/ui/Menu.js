@@ -1,7 +1,5 @@
 import React from 'react';
-import { AppBar, Button, createMuiTheme, Grid, IconButton, List, ListItem, ListItemText, makeStyles, 
-  Toolbar, Typography } from '@material-ui/core';
-import { Home, MenuIcon } from '@material-ui/icons'; 
+import { AppBar, Grid, List, makeStyles, Toolbar } from '@material-ui/core';
 import MenuOption from './MenuOption';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import StarOutlineOutlinedIcon from '@material-ui/icons/StarOutlineOutlined';
