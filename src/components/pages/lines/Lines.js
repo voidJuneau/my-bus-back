@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@material-ui/core";
-import LineBox from "./LineBox";
+import LineCard from "./LineCard";
 
 const data = [{
   "route_id": "4349",
@@ -28,7 +28,7 @@ const data = [{
 export default function Lines() {
   return (
     <Container>
-      {data.map(d => (<LineBox line={d} />))}
+      {data.map(d => (<LineCard line={d} />))}
     </Container>
   )
 }
