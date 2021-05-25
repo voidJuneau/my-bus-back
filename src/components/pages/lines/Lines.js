@@ -28,7 +28,6 @@ const Lines = () => {
   return (
     <Container>
       {lines.map(d => (<LineCard line={d} key={d.route_id}/>))}
-      <div>page: {page}</div>
       <div className={classes.root}>
         <Pagination count={totalPages} onChange={handleChange} />
       </div>

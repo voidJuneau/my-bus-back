@@ -17,7 +17,7 @@ export default function MenuOption({ children, label, path }) {
     <ListItem button dense
       component={CustomLink}
       className={classes.listItem}>
-      <Grid Container>
+      <Grid container direction="column">
         <Grid item>
           {children}
         </Grid>
