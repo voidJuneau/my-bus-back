@@ -26,9 +26,11 @@ export default function Stops({ setCenter, setMarkers }) {
   
   return (
     <Container>
-      {stops.map(s => (<StopListCard stop={s} key={s.route_id}/>))}
+      {stops.map(s => (<StopListCard stop={s} key={s.stop_id + s.stop_code}/>))}
       <div className={classes.root}>
-        <Pagination count={totalPages} onChange={handleChange} />
+        <Pagination count={totalPages} siblingCount={1} page={page}
+          showFirstButton showLastButton
+          onChange={handleChange} />
       </div>
     </Container>
   )
