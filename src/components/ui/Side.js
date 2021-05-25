@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Menu from "./Menu";
 import Favourate from "../pages/Favourate";
 import Lines from "../pages/lines/Lines";
-import Stops from "../pages/Stops";
+import Stops from "../pages/stops/Stops";
 import Member from "../pages/Member";
 
 export default function Side({ setCenter, setMarkers }) {

@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
                   `stop_code = '${query}'`;
     }
   }
-  command += "ORDER BY agency_id DESC, stop_id ";
+  command += "ORDER BY stop_code, agency_id DESC ";
   if (limit)
     command += `LIMIT ${limit} OFFSET ${offset}`;
   
