@@ -5,50 +5,29 @@ import Pagination from '@material-ui/lab/Pagination';
 
 import LineCard from "./LineCard";
 
-const data = [{
-  "route_id": "4349",
-  "agency_id": "HSR",
-  "route_short_name": "01",
-  "route_long_name": "KING",
-  "route_desc": null,
-  "route_type": 3,
-  "route_url": null,
-  "route_color": "0093DD",
-  "route_text_color": "000000"
-  },
-  {
-  "route_id": "05210621-16",
-  "agency_id": "GO",
-  "route_short_name": "16",
-  "route_long_name": "Hamilton / Toronto Express",
-  "route_desc": null,
-  "route_type": 3,
-  "route_url": null,
-  "route_color": "98002e",
-  "route_text_color": "FFFFFF"
-  },]
-
 const getLines = async (limit, page) => {
-  const response = await fetch(`/api/lines?limit=${limit}&page=${page}`)
+  return await (await fetch(`/api/lines?limit=${limit}&page=${page}`)).json();
 }
 
 const Lines = () => {
   const classes = useStyles();
+  const [ page, setPage ] = useState(1);
+  const [ lines, setLines ] = useState([]);
   const limit = 5;
-  const [ page, setPage ] = useState(Math.floor(42/limit));
-  const [ lines, setLines ] = useState()
+  const totalPages = Math.ceil(46/limit);
   
   const handleChange = (event, value) => {
     setPage(value);
   }
 
   useEffect(() => {
-
+    getLines(limit, page)
+    .then(lines => setLines(lines));
   }, [page])
   
   return (
     <Container>
-      {data.map(d => (<LineCard line={d} key={d.route_id}/>))}
+      {lines.map(d => (<LineCard line={d} key={d.route_id}/>))}
       <div>page: {page}</div>
       <div className={classes.root}>
         <Pagination count={totalPages} onChange={handleChange} />

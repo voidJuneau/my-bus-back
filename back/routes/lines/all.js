@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
                 `LOWER(route_short_name) LIKE LOWER('%${query}%') OR ` +
                 `LOWER(route_long_name) LIKE LOWER('%${query}%') `
   }
-  command += "ORDER BY agency_id DESC, route_short_name ";
+  command += "ORDER BY route_short_name, agency_id DESC ";
   if (limit)
     command += `LIMIT ${limit} OFFSET ${offset}`;
   
