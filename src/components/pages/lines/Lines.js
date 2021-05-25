@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, withRouter } from "react-router-dom";
 import { Container, makeStyles } from "@material-ui/core";
 import Pagination from '@material-ui/lab/Pagination';
 
@@ -9,7 +8,7 @@ const getLines = async (limit, page) => {
   return await (await fetch(`/api/lines?limit=${limit}&page=${page}`)).json();
 }
 
-const Lines = () => {
+export default function Lines({ setCenter, setMarkers }) {
   const classes = useStyles();
   const [ page, setPage ] = useState(1);
   const [ lines, setLines ] = useState([]);
@@ -42,5 +41,3 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-export default withRouter(Lines);

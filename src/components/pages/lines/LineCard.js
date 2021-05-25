@@ -3,7 +3,7 @@ import cx from 'clsx';
 import { Card, Grid, makeStyles } from "@material-ui/core";
 import { useBouncyShadowStyles } from '@mui-treasury/styles/shadow/bouncy';
 
-import BoxMenu from "../../ui/BoxMenu";
+import CardMenu from "../../ui/CardMenu";
 
 const hsrLogo = require("../../../images/hsr.png");
 const goLogo = require("../../../images/go.svg");
@@ -27,6 +27,10 @@ export default function LineCard({ line }) {
       break;
   }
 
+  // TODO: click on card links to stops on that line
+  // TODO: on map
+  // TODO(secondary): discussion
+
   return (
     <Grid container component={Card} 
       alignItems="center"
@@ -40,7 +44,7 @@ export default function LineCard({ line }) {
       <Grid item className={classes.listBoxItem}>
         {line.route_long_name}
       </Grid>
-      <BoxMenu />
+      <CardMenu data={line} />
     </Grid>
   );
 }

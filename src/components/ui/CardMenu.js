@@ -3,9 +3,10 @@ import { Grid, makeStyles } from "@material-ui/core";
 import StarOutlineOutlinedIcon from '@material-ui/icons/StarOutlineOutlined';
 import KeyboardOutlinedIcon from '@material-ui/icons/KeyboardOutlined';
 import RoomIcon from '@material-ui/icons/Room';
+import DirectionsBusIcon from '@material-ui/icons/DirectionsBus';
 import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 
-export default function BoxMenu({ data }) {
+export default function CardMenu({ data }) {
   const classes = useStyle();
 
   return (
@@ -16,14 +17,23 @@ export default function BoxMenu({ data }) {
           <StarOutlineOutlinedIcon />
         </Grid>
         <Grid item container xs direction="row">
-          {/* discussion - for line */}
-          <Grid item xs>
-            <KeyboardOutlinedIcon />
-          </Grid>
-          {/* stops - for line */}
-          <Grid item>
-            <RoomIcon />
-          </Grid>
+          {data.route_short_name && (
+            <React.Fragment>
+            {/* discussion - for line */}
+              <Grid item xs>
+                <KeyboardOutlinedIcon />
+              </Grid>
+              {/* stops - for line */}
+              <Grid item>
+                <RoomIcon />
+              </Grid>
+            </React.Fragment>)}
+          {/* lines - for stop */}
+          {data.stop_name && (
+            <Grid item>
+              <DirectionsBusIcon />
+            </Grid>
+            )}
           {/* on map - for line, stop */}
           <Grid>
             <MapOutlinedIcon />

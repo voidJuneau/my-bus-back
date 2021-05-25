@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom'
 import { Container, createMuiTheme, Grid, MuiThemeProvider } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
@@ -20,16 +20,18 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
+  const [ center, setCenter ] = useState({lat: 43.2551406, lng: -79.8732005});
+  const [ markers, setMarkers ] = useState([]);
   return (
     <BrowserRouter>
       <MuiThemeProvider theme={theme}>
         <Container disableGutters>
           <Grid container>
             <Grid item xs={12} sm={12} md={4}>
-              <Side />
+              <Side setCenter={setCenter} setMarkers={setMarkers} />
             </Grid>
             <Grid item md={8}>
-              <Map zoom={10} center={{lat:40, lng:-80}} markers={[]}/>
+              <Map zoom={10} center={center} markers={markers}/>
             </Grid>
           </Grid>
         </Container>

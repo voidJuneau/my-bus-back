@@ -7,33 +7,33 @@ import Lines from "../pages/lines/Lines";
 import Stops from "../pages/Stops";
 import Member from "../pages/Member";
 
-export default function Side() {
+export default function Side({ setCenter, setMarkers }) {
   return (
     <div> 
       <Menu />
       <Switch>
-        <Route path="/favourate">
+        <Route path="/favourate" >
           <Favourate />
         </Route>
       </Switch>
       <Switch>
-        <Route path="/lines">
-          <Lines />
+        <Route path="/lines" >
+          <Lines setCenter={setCenter} setMarkers={setMarkers} />
         </Route>
       </Switch>
       <Switch>
-        <Route path="/stops">
-          <Stops />
+        <Route path="/stops" >
+          <Stops setCenter={setCenter} setMarkers={setMarkers} />
         </Route>
       </Switch>
       <Switch>
-        <Route path="/member">
+        <Route path="/member" >
           <Member />
         </Route>
       </Switch>
       <Switch>
-        <Route path="/search" exact>
-          <Lines />
+        <Route path="/" >
+          {/* <Lines /> */}
         </Route>
       </Switch>
     </div>
