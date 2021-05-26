@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { Container, createMuiTheme, Grid, MuiThemeProvider } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
 import amber from '@material-ui/core/colors/amber';
@@ -23,7 +23,7 @@ const App = () => {
   const [ center, setCenter ] = useState({lat: 43.2551406, lng: -79.8732005});
   const [ markers, setMarkers ] = useState([]);
   return (
-    <BrowserRouter>
+    <HashRouter>
       <MuiThemeProvider theme={theme}>
         <Container disableGutters>
           <Grid container>
@@ -36,7 +36,7 @@ const App = () => {
           </Grid>
         </Container>
       </MuiThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
