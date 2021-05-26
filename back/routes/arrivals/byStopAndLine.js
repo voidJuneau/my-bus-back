@@ -70,6 +70,7 @@ module.exports = async (req, res) => {
     try {
       const client = await pool.connect();
       const result = await client.query(command);
+      client.release();
       let results = [];
       if (result && result.rows) {
         result.rows.forEach(update => {

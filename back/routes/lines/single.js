@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
       `SELECT * FROM route \
         WHERE LOWER(agency_id) = LOWER('${req.params.agencyId}') AND \
           route_id = '${req.params.routeId}'`);
+    client.release();
     const results = { 'results': (result) ? result.rows : null};
     res.status(200).json( results.results[0] );
   } catch (err) {

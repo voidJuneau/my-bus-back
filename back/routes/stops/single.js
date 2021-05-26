@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
     const result = await client.query(
       `SELECT * FROM stop \
         WHERE stop_id = '${req.params.stopId}'`);
+    client.release();
     const results = { 'results': (result) ? result.rows : null};
     res.status(200).json( results.results[0] );
   } catch (err) {
