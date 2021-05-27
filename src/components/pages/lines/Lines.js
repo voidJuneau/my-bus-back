@@ -26,7 +26,8 @@ export default function Lines({ setCenter, setMarkers }) {
   
   return (
     <Container>
-      {lines.map(d => (<LineCard line={d} key={d.route_id}/>))}
+      {lines.map(d => (<LineCard line={d} key={d.route_id}
+                          setCenter={setCenter} setMarkers={setMarkers} />))}
       <div className={classes.root}>
         <Pagination count={totalPages} onChange={handleChange} />
       </div>

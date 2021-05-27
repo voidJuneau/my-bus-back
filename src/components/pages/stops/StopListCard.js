@@ -9,7 +9,7 @@ const hsrLogo = require("../../../images/hsr.png");
 const goLogo = require("../../../images/go.svg");
 const burlLogo = require("../../../images/burl.png");
 
-export default function StopListCard({ stop }) {
+export default function StopListCard({ stop, setCenter, setMarkers }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
   let logo;
@@ -60,7 +60,7 @@ export default function StopListCard({ stop }) {
             </Typography>
           </Grid>
         </Grid>
-        <CardMenu data={stop} />
+        <CardMenu data={stop} setCenter={setCenter} setMarkers={setMarkers} />
       </Grid>
     </ThemeProvider>
   );

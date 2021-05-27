@@ -6,8 +6,22 @@ import RoomIcon from '@material-ui/icons/Room';
 import DirectionsBusIcon from '@material-ui/icons/DirectionsBus';
 import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 
-export default function CardMenu({ data }) {
+import StopMarker from "../map/StopMarker";
+
+export default function CardMenu({ data, setCenter, setMarkers }) {
   const classes = useStyle();
+
+  let dataType;
+  if (data.route_short_name)
+    dataType = "line"
+    else if (data.stop_name)
+    dataType = "stop"
+
+  const handleClickMapIcon = () => {
+    if (dataType === "stop") {
+      setMarkers([(<StopMarker data={data} />)]);
+    }
+  }
 
   return (
     <Grid item className={classes.boxMenu}>
@@ -17,7 +31,7 @@ export default function CardMenu({ data }) {
           <StarOutlineOutlinedIcon />
         </Grid>
         <Grid item container xs direction="row">
-          {data.route_short_name && (
+          {dataType === "line" && (
             <React.Fragment>
             {/* discussion - for line */}
               <Grid item xs>
@@ -29,14 +43,14 @@ export default function CardMenu({ data }) {
               </Grid>
             </React.Fragment>)}
           {/* lines - for stop */}
-          {data.stop_name && (
+          {dataType === "stop" && (
             <Grid item>
               <DirectionsBusIcon />
             </Grid>
             )}
           {/* on map - for line, stop */}
           <Grid>
-            <MapOutlinedIcon />
+            <MapOutlinedIcon onClick={handleClickMapIcon} />
           </Grid>
         </Grid>
       </Grid>

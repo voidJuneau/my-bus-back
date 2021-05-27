@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter } from 'react-router-dom'
 import { Container, createMuiTheme, Grid, MuiThemeProvider } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
@@ -6,7 +6,7 @@ import amber from '@material-ui/core/colors/amber';
 
 import './App.css';
 import Side from './components/ui/Side';
-import Map from './components/Map';
+import Map from './components/map/Map';
 
 const theme = createMuiTheme({
   palette: {
@@ -22,6 +22,11 @@ const theme = createMuiTheme({
 const App = () => {
   const [ center, setCenter ] = useState({lat: 43.2551406, lng: -79.8732005});
   const [ markers, setMarkers ] = useState([]);
+
+  useEffect(() => {
+    console.log(markers);
+  }, [markers])
+
   return (
     <HashRouter>
       <MuiThemeProvider theme={theme}>
