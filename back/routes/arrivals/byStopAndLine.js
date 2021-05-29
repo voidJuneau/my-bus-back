@@ -19,8 +19,6 @@ module.exports = async (req, res) => {
   switch (agencyId) {
     case "hsr":
       url = "https://opendata.hamilton.ca/GTFS-RT/GTFS_TripUpdates.pb";
-      // for hsr, there are offset (47) on route_id for realtime api, only god knows why
-      routeId = (parseInt(routeId)+47) + ""
       break;
     case "burlington":
       url = "http://opendata.burlington.ca/gtfs-rt/GTFS_TripUpdates.pb";
@@ -38,12 +36,14 @@ module.exports = async (req, res) => {
   if (agencyId !== "go") {
     try {
       // get data from realtime api
-      request(requestSettings, function (error, response, body) {
+      request(requestSettings, async function (error, response, body) {
         const updates = [];
         if (!error && response.statusCode == 200) {
           var feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(body);
-          feed.entity.forEach(function(entity) {
-            if (entity.tripUpdate && entity.tripUpdate.trip.routeId === routeId) {
+          feed.entity.some(entity => {
+            if (entity.tripUpdate && entity.tripUpdate.trip.routeId === (
+              // for hsr, there are offset (47) on route_id for realtime api, only god knows why
+              agencyId === "hsr"? (parseInt(routeId)+47) + "" : routeId)) {
               entity.tripUpdate.stopTimeUpdate.some(u => {
                 if (u.stopId === stopId) {
                   updates.push(u);
@@ -51,10 +51,24 @@ module.exports = async (req, res) => {
                   return true;
                 }
               });
+              // get only two entries at most
+              if (updates.length === 2)
+                return true;
             }
           });
         }
-        // TODO: when there are no data on first or second feed, get from scheduled one on DB
+        const schedules = await getSchedules(agencyId, stopId, routeId);
+        console.log(agencyId, stopId, routeId);
+        // console.log("u0", updates[0])
+        // console.log("s0", schedules[0])
+        console.log(schedules)
+        // console.log(schedules[1], updates[1])
+        for (let i=0; i<2; i++) {
+          // When there are no data on first or second feed, substitute with scheduled one
+          if (!updates[i] || updates[i].scheduleRelationship === "NO_DATA") {
+            updates[i] = schedules[i]
+          }
+        }
         res.status(200).json( updates );
       });
     } catch (err) {
@@ -62,7 +76,18 @@ module.exports = async (req, res) => {
       res.status(500).json({error: err});
     }
   } else { // go does not provide realtime data. service scheduled data instead
-    const command = 
+    try {
+      const results = await getSchedules(agencyId, stopId, routeId);
+      res.status(200).json( results );
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({error: err});
+    }
+  }
+};
+
+const getSchedules = async (agencyId, stopId, routeId) => {
+  const command = 
     "SELECT DISTINCT st.arrival_time, st.departure_time " +
         "FROM stop_time AS st " +
         "INNER JOIN stop AS s ON (st.stop_id = s.stop_id) " +
@@ -71,42 +96,34 @@ module.exports = async (req, res) => {
         `WHERE r.route_id = '${routeId}' AND ` +
           `s.stop_id = '${stopId}' AND ` +
           `LOWER(s.agency_id) LIKE LOWER('${agencyId}')`
-    try {
-      const client = await pool.connect();
-      const result = await client.query(command);
-      client.release();
-      let results = [];
-      if (result && result.rows) {
-        result.rows.forEach(update => {
-          let d = new Date();
-          let [hours, minutes, seconds] = update.arrival_time.split(':');
-          d.setHours(hours);
-          d.setMinutes(minutes);
-          d.setSeconds(seconds);
-          // if the bus is already gone, change it as tomorrow's one
-          if (d < Date.now())
-            d.setDate(d.getDate() + 1);
-          // stores only time first, for sorting
-          results.push(d);
-        });
-        results.sort((a, b) => a.valueOf() - b.valueOf());
-        results = results.map(d => ({
-          arrival: {
-            delay: 0,
-            time: d.valueOf() // for json delivery
-          },
-          departure: {
-            delay: 0,
-            time: d.valueOf()
-          },
-          stopId,
-          scheduleRelationship: "SCHEDULED"
-        }))
-      }
-      res.status(200).json( results.slice(0, 3) );
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({error: err});
-    }
+  const client = await pool.connect();
+  const result = await client.query(command);
+  client.release();
+  let results = [];
+  if (result && result.rows) {
+    result.rows.forEach(update => {
+      let d = new Date();
+      let [hours, minutes, seconds] = update.arrival_time.split(':');
+      d.setHours(hours);
+      d.setMinutes(minutes);
+      d.setSeconds(seconds);
+      // if the bus is already gone, change it as tomorrow's one
+      if (d < Date.now())
+        d.setDate(d.getDate() + 1);
+      // stores only time first, for sorting
+      results.push(d);
+    });
+    results.sort((a, b) => a.valueOf() - b.valueOf());
+    results = results.map(d => ({
+      arrival: {
+        time: d.valueOf().toString() // for json delivery
+      },
+      departure: {
+        time: d.valueOf().toString()
+      },
+      stopId,
+      scheduleRelationship: "SCHEDULED"
+    }))
   }
-};
+  return results.slice(0, 2);
+}
