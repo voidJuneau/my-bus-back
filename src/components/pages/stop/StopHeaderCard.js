@@ -22,7 +22,7 @@ export default function StopHeaderCard({ stop }) {
       </Grid>
       <Grid item container justify="center" direction="column" >
         <Grid item container direction="row" justify="center" >
-          <Grid item>
+          <Grid item style={{marginRight:"0.2rem"}}>
             <Typography align="center" variant="caption" display="inline" >
               Stop code: 
             </Typography>
