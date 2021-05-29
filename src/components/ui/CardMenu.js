@@ -30,7 +30,7 @@ export default function CardMenu({ data, setCenter, setMarkers }) {
         <Grid item container justify="flex-end">
           <StarOutlineOutlinedIcon />
         </Grid>
-        <Grid item container xs direction="row">
+        <Grid item container xs direction="row" wrap="nowrap" >
           {dataType === "line" && (
             <React.Fragment>
             {/* discussion - for line */}

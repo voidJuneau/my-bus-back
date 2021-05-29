@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
 import { Card, Container } from "@material-ui/core";
 
+import StopHeaderCard from "./StopHeaderCard";
+
 export default function Stop({ setCenter, setMarkers }) {
   const { sId } = useParams();
-  const [ stop, setStop ] = useState({stop_name: "none"});
+  const [ stop, setStop ] = useState({});
 
   useEffect(() => {
     fetch(`/api/stops/${sId}`)
@@ -14,9 +16,7 @@ export default function Stop({ setCenter, setMarkers }) {
 
   return (
     <Container>
-      <Card>
-        {stop.stop_name}
-      </Card>
+      <StopHeaderCard stop={stop} />
     </Container>
   )
 }
