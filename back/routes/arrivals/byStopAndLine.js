@@ -35,6 +35,7 @@ module.exports = async (req, res) => {
   };
   if (agencyId !== "go") {
     try {
+      // get data from realtime api
       request(requestSettings, function (error, response, body) {
         const updates = [];
         if (!error && response.statusCode == 200) {
@@ -51,6 +52,7 @@ module.exports = async (req, res) => {
             }
           });
         }
+        console.log(updates)
         res.status(200).json( updates );
       });
     } catch (err) {

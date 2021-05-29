@@ -17,7 +17,6 @@ module.exports = (req, res) => {
       const data = [];
       if (!error && response.statusCode == 200) {
         var feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(body);
-        // console.log(feed.entity[0].tripUpdate.stopTimeUpdate[0])
         feed.entity.forEach(function(entity) {
           if (entity.tripUpdate) {
             data.push(entity.tripUpdate);

@@ -29,7 +29,7 @@ export default function StopHeaderCard({ stop }) {
           </Grid>
           <Grid item>
             <Typography align="center" variant="body2" display="inline" >
-              {stop.stop_id}
+              {stop.stop_code}
             </Typography>
           </Grid>
         </Grid>

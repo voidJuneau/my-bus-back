@@ -40,7 +40,7 @@ export default function StopListCard({ stop, setCenter, setMarkers }) {
 
   return (
     <ThemeProvider theme={theme} >
-      <Link to={`/stop/${stop.stop_id}`} >
+      <Link to={`/stop/${stop.agency_id}/${stop.stop_id}`} >
         <Grid container component={Card} 
           alignItems="center"
           className={cx(classes.lineBox, shadowStyles.root)} >
@@ -71,7 +71,6 @@ export default function StopListCard({ stop, setCenter, setMarkers }) {
 
 const useStyle = makeStyles(theme => ({
   lineBox: {
-    // border: "1px solid black",
     margin: "16px 0"
   },
   listBoxItem: {

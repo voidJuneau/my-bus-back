@@ -28,7 +28,7 @@ export default function Side({ setCenter, setMarkers }) {
         </Route>
       </Switch>
       <Switch>
-        <Route path="/stop/:sId" >
+        <Route path="/stop/:aId/:sId" >
           <Stop setCenter={setCenter} setMarkers={setMarkers} />
         </Route>
       </Switch>

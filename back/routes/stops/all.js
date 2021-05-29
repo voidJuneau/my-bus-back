@@ -28,7 +28,8 @@ module.exports = async (req, res) => {
 
   let command = "SELECT * FROM stop ";
   if (query) { 
-    command += `WHERE LOWER(stop_name) LIKE LOWER('%${query}%') OR ` +
+    command += `WHERE stop_code IS NOT NULL ` +
+                `LOWER(stop_name) LIKE LOWER('%${query}%') OR ` +
                 `LOWER(stop_desc) LIKE LOWER('%${query}%') `;
     if (parseInt(query)) {
       command += `OR stop_id = '${query}' OR ` +

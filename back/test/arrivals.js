@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 describe('/GET arrivals', () => {
   it('It should GET arrivals on a stop of a non-go line', (done) => {
     chai.request(server)
-      .get('/all/arrivals/hsr/stop/1499/route/4421')
+      .get('/api/arrivals/hsr/stop/1499/route/4421')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -22,7 +22,7 @@ describe('/GET arrivals', () => {
 
   it('It should GET arrivals on a stop of a go line', (done) => {
     chai.request(server)
-      .get('/all/arrivals/go/stop/141/route/05210621-16')
+      .get('/api/arrivals/go/stop/141/route/05210621-16')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
