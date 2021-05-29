@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, createMuiTheme, Grid, makeStyles, Typography } from "@material-ui/core";
-import RoomIcon from '@material-ui/icons/Room';
 
 import CardMenu from "../../ui/CardMenu";
 
@@ -9,6 +8,7 @@ const goLogo = require("../../../images/go.svg");
 const burlLogo = require("../../../images/burl.png");
 
 export default function ArrivalCard({ line, stopId }) {
+  const [ arrivals, setArrivals ] = useState([]);
   const classes = useStyle();
   let logo;
   switch (line.agency_id.toLowerCase()) {
@@ -30,7 +30,6 @@ export default function ArrivalCard({ line, stopId }) {
       caption: {
         fontStyle: "italic",
         textAlign: "center"
-        // fontSize: "0.7rem"
       }
     }
   });
@@ -38,7 +37,7 @@ export default function ArrivalCard({ line, stopId }) {
   useEffect(() => {
     fetch(`api/arrivals/${line.agency_id}/stop/${stopId}/route/${line.route_id}`)
     .then(res => res.json())
-    .then(data => {console.log(data)})
+    .then(data => setArrivals(data));
   }, [])
   
   return (

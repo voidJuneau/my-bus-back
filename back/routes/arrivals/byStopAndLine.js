@@ -58,15 +58,18 @@ module.exports = async (req, res) => {
           });
         }
         const schedules = await getSchedules(agencyId, stopId, routeId);
-        console.log(agencyId, stopId, routeId);
-        // console.log("u0", updates[0])
-        // console.log("s0", schedules[0])
-        console.log(schedules)
-        // console.log(schedules[1], updates[1])
         for (let i=0; i<2; i++) {
           // When there are no data on first or second feed, substitute with scheduled one
           if (!updates[i] || updates[i].scheduleRelationship === "NO_DATA") {
             updates[i] = schedules[i]
+          } else {
+            // the entry of realtime api is StopTimeUpdate class object. 
+            // unpack and reassembles to add tripHeadsign attribute 
+            updates[i] = {
+              ...(updates[i]),
+              tripHeadsign: schedules[0].tripHeadsign,
+              }
+            
           }
         }
         res.status(200).json( updates );
@@ -75,7 +78,7 @@ module.exports = async (req, res) => {
       console.error(err);
       res.status(500).json({error: err});
     }
-  } else { // go does not provide realtime data. service scheduled data instead
+  } else { // GO does not provide realtime data. Serve scheduled data instead
     try {
       const results = await getSchedules(agencyId, stopId, routeId);
       res.status(200).json( results );
@@ -88,7 +91,7 @@ module.exports = async (req, res) => {
 
 const getSchedules = async (agencyId, stopId, routeId) => {
   const command = 
-    "SELECT DISTINCT st.arrival_time, st.departure_time " +
+    "SELECT DISTINCT st.arrival_time, st.departure_time, t.trip_headsign " +
         "FROM stop_time AS st " +
         "INNER JOIN stop AS s ON (st.stop_id = s.stop_id) " +
         "INNER JOIN trip AS t ON (st.trip_id = t.trip_id) " +
@@ -114,15 +117,16 @@ const getSchedules = async (agencyId, stopId, routeId) => {
       results.push(d);
     });
     results.sort((a, b) => a.valueOf() - b.valueOf());
-    results = results.map(d => ({
+    results = results.map(update => ({
       arrival: {
-        time: d.valueOf().toString() // for json delivery
+        time: update.valueOf().toString() // for json delivery
       },
       departure: {
-        time: d.valueOf().toString()
+        time: update.valueOf().toString()
       },
       stopId,
-      scheduleRelationship: "SCHEDULED"
+      scheduleRelationship: "SCHEDULED",
+      tripHeadsign: result.rows[0].trip_headsign,
     }))
   }
   return results.slice(0, 2);
