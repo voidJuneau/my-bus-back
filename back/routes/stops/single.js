@@ -8,8 +8,9 @@ const pool = new Pool({
   }
 });
 
-// /stops/stop_id
+// /stops/route_id
 module.exports = async (req, res) => {
+  console.log(req.params)
   try {
     const client = await pool.connect();
     const result = await client.query(

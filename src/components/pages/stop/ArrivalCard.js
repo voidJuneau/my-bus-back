@@ -36,8 +36,7 @@ export default function ArrivalCard({ line, stopId }) {
   });
   // /api/arrivals/hsr/stop/1499/route/4421
   useEffect(() => {
-    // there are offset (47) on route_id for realtime api, that I have no clue why
-    fetch(`api/arrivals/${line.agency_id}/stop/${stopId}/route/${parseInt(line.route_id)+47}`)
+    fetch(`api/arrivals/${line.agency_id}/stop/${stopId}/route/${line.route_id}`)
     .then(res => res.json())
     .then(data => {console.log(data)})
   }, [])

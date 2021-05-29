@@ -6,7 +6,8 @@ const DEFAULT_LIMIT = require("../common").DEFAULT_LIMIT;
 
 const requestSettings = {
   method: 'GET',
-  url: 'https://opendata.hamilton.ca/GTFS-RT/GTFS_TripUpdates.pb',
+  // url: 'https://opendata.hamilton.ca/GTFS-RT/GTFS_TripUpdates.pb',
+  url: "http://opendata.burlington.ca/gtfs-rt/GTFS_TripUpdates.pb",
   encoding: null
 };
 

@@ -12,13 +12,15 @@ const pool = new Pool({
 
 // /arrivals/agency_id/stop_id/route_id
 module.exports = async (req, res) => {
-  const stopId = req.params.stopId;
-  const routeId = req.params.routeId;
   const agencyId = req.params.agencyId.toLowerCase();
+  const stopId = req.params.stopId;
+  let routeId = req.params.routeId;
   let url;
   switch (agencyId) {
     case "hsr":
       url = "https://opendata.hamilton.ca/GTFS-RT/GTFS_TripUpdates.pb";
+      // for hsr, there are offset (47) on route_id for realtime api, only god knows why
+      routeId = (parseInt(routeId)+47) + ""
       break;
     case "burlington":
       url = "http://opendata.burlington.ca/gtfs-rt/GTFS_TripUpdates.pb";
@@ -52,7 +54,7 @@ module.exports = async (req, res) => {
             }
           });
         }
-        console.log(updates)
+        // TODO: when there are no data on first or second feed, get from scheduled one on DB
         res.status(200).json( updates );
       });
     } catch (err) {
