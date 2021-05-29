@@ -5,6 +5,7 @@ import Menu from "./Menu";
 import Favourate from "../pages/Favourate";
 import Lines from "../pages/lines/Lines";
 import Stops from "../pages/stops/Stops";
+import Stop from "../pages/stop/Stop";
 import Member from "../pages/Member";
 
 export default function Side({ setCenter, setMarkers }) {
@@ -24,6 +25,11 @@ export default function Side({ setCenter, setMarkers }) {
       <Switch>
         <Route path="/stops" >
           <Stops setCenter={setCenter} setMarkers={setMarkers} />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/stop/:sId" >
+          <Stop setCenter={setCenter} setMarkers={setMarkers} />
         </Route>
       </Switch>
       <Switch>

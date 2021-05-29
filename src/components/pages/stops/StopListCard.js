@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import cx from 'clsx';
 import { Card, createMuiTheme, Grid, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import { useBouncyShadowStyles } from '@mui-treasury/styles/shadow/bouncy';
@@ -39,29 +40,31 @@ export default function StopListCard({ stop, setCenter, setMarkers }) {
 
   return (
     <ThemeProvider theme={theme} >
-      <Grid container component={Card} 
-        alignItems="center"
-        className={cx(classes.lineBox, shadowStyles.root)} >
-        <Grid item className={classes.listBoxItem}>
-          <img src={logo.default} alt="Agency logo" width="32px" />
-        </Grid>
-        <Grid item className={classes.listBoxItem}>
-          {stop.stop_code}
-        </Grid>
-        <Grid item container direction="column" className={classes.listBoxItem} >
-          <Grid item >
-            <Typography variant="body1">
-              {stop.stop_name}
-            </Typography>
+      <Link to={`/stop/${stop.stop_id}`} >
+        <Grid container component={Card} 
+          alignItems="center"
+          className={cx(classes.lineBox, shadowStyles.root)} >
+          <Grid item className={classes.listBoxItem}>
+            <img src={logo.default} alt="Agency logo" width="32px" />
           </Grid>
-          <Grid item >
-            <Typography variant="caption">
-              {stop.stop_desc}
-            </Typography>
+          <Grid item className={classes.listBoxItem}>
+            {stop.stop_code}
           </Grid>
+          <Grid item container direction="column" className={classes.listBoxItem} >
+            <Grid item >
+              <Typography variant="body1">
+                {stop.stop_name}
+              </Typography>
+            </Grid>
+            <Grid item >
+              <Typography variant="caption">
+                {stop.stop_desc}
+              </Typography>
+            </Grid>
+          </Grid>
+          <CardMenu data={stop} setCenter={setCenter} setMarkers={setMarkers} />
         </Grid>
-        <CardMenu data={stop} setCenter={setCenter} setMarkers={setMarkers} />
-      </Grid>
+      </Link>
     </ThemeProvider>
   );
 }

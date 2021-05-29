@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { InfoWindow, Marker } from "@react-google-maps/api";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default function StopMarker({ data }) {
   const [ shown, setShown ] = useState(false);
