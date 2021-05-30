@@ -4,6 +4,7 @@ import { Card, Container, Grid } from "@material-ui/core";
 
 import StopHeaderCard from "./StopHeaderCard";
 import ArrivalCard from "./ArrivalCard";
+import StopMarker from "../../map/StopMarker";
 
 export default function Stop({ setCenter, setMarkers }) {
   const { aId, sId } = useParams();
@@ -14,7 +15,10 @@ export default function Stop({ setCenter, setMarkers }) {
     // Load stop info
     fetch(`/api/stops/${sId}`)
     .then(res => res.json())
-    .then(data => setStop(data));
+    .then(data => {
+      setStop(data)
+      setMarkers([(<StopMarker data={data} />)])
+    });
     
     // Load lines on that stop
     fetch(`/api/lines/${aId}/stop/${sId}`)
@@ -30,8 +34,8 @@ export default function Stop({ setCenter, setMarkers }) {
           <StopHeaderCard stop={stop} />
         </Grid>
         {lines.map(l => (
-          <Grid item>
-            <ArrivalCard line={l} stopId={sId} key={l.route_id} />
+          <Grid item key={l.route_id}>
+            <ArrivalCard line={l} stop={stop} key={l.route_id} />
           </Grid>
           ))}
       </Grid>

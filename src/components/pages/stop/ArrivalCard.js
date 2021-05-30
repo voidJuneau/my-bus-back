@@ -7,7 +7,7 @@ const hsrLogo = require("../../../images/hsr.png");
 const goLogo = require("../../../images/go.svg");
 const burlLogo = require("../../../images/burl.png");
 
-export default function ArrivalCard({ line, stopId }) {
+export default function ArrivalCard({ line, stop }) {
   const [ arrivals, setArrivals ] = useState([]);
   const classes = useStyle();
   let logo;
@@ -35,7 +35,7 @@ export default function ArrivalCard({ line, stopId }) {
   });
   // /api/arrivals/hsr/stop/1499/route/4421
   useEffect(() => {
-    fetch(`api/arrivals/${line.agency_id}/stop/${stopId}/route/${line.route_id}`)
+    fetch(`api/arrivals/${line.agency_id}/stop/${stop.stop_id}/route/${line.route_id}`)
     .then(res => res.json())
     .then(data => setArrivals(data));
   }, [])
@@ -65,7 +65,7 @@ export default function ArrivalCard({ line, stopId }) {
                 Direction: {arrivals[0].tripHeadsign}
               </Typography>
             </Grid>
-            <Grid item container direction="row" nowrap>
+            <Grid item container direction="row" wrap="nowrap" >
               <Typography style={{marginRight:"0.2rem"}}>
                 Next bus: {getLeftMin(arrivals[0].arrival.time) === 0? "now" :
                   `in ${getLeftMin(arrivals[0].arrival.time)} min`}
@@ -74,7 +74,7 @@ export default function ArrivalCard({ line, stopId }) {
                 {getDelayMessage(arrivals[0].arrival.delay)}
               </Typography>
             </Grid>
-            <Grid item container direction="row" nowrap >
+            <Grid item container direction="row" wrap="nowrap" >
               <Typography style={{marginRight:"0.2rem"}}>
                 Also: in {`${getLeftMin(arrivals[1].arrival.time)}`} min  
               </Typography>
@@ -85,7 +85,7 @@ export default function ArrivalCard({ line, stopId }) {
           </React.Fragment>)}
       </Grid>
       <Grid item>
-        <CardMenu data={arrivals} />
+        <CardMenu data={{line, stop, arrivals}} />
       </Grid>
     </Grid>
   )
