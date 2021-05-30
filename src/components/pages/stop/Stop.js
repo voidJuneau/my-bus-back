@@ -19,7 +19,7 @@ export default function Stop({ setCenter, setMarkers }) {
     // Load lines on that stop
     fetch(`/api/lines/${aId}/stop/${sId}`)
     .then(res => res.json())
-    .then(data => {console.log(data); setLines(data)});
+    .then(data => setLines(data));
     
   }, [])
 

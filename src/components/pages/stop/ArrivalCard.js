@@ -65,14 +65,20 @@ export default function ArrivalCard({ line, stopId }) {
                 Direction: {arrivals[0].tripHeadsign}
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid item container direction="row" nowrap>
+              <Typography style={{marginRight:"0.2rem"}}>
+                Next bus: in {`${getLeftMin(arrivals[0].arrival.time)}`} min  
+              </Typography>
               <Typography>
-                Next bus: {`in ${getLeftMin(arrivals[0].arrival.time)} min`}
+                {getDelayMessage(arrivals[0].arrival.delay)}
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid item container direction="row" nowrap >
+              <Typography style={{marginRight:"0.2rem"}}>
+                Also: in {`${getLeftMin(arrivals[1].arrival.time)}`} min  
+              </Typography>
               <Typography>
-                Also: in # min
+                {getDelayMessage(arrivals[1].arrival.delay)}
               </Typography>
             </Grid>
           </React.Fragment>)}
@@ -93,6 +99,14 @@ const useStyle = makeStyles(theme => ({
     width: "auto"
   }
 }));
+
+const getDelayMessage = delay => {
+  // if (!delay) return "(on time)";
+  if (!delay) return "";
+  delay = Math.ceil(delay / 60);
+  if (delay > 0) return `(${delay} minutes delayed)`
+  return `(${-delay} minutes early)`
+}
 
 const getLeftMin = timestamp => {
   const now = new Date()

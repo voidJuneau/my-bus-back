@@ -71,6 +71,7 @@ module.exports = async (req, res) => {
             }
           }
         }
+        updates.sort((a, b) => a.arrival.time - b.arrival.time) // in case the scheduled one is ordered earlier then realtime one
         res.status(200).json( updates );
       });
     } catch (err) {
