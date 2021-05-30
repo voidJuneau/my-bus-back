@@ -45,7 +45,9 @@ module.exports = async (req, res) => {
               // for hsr, there are offset (47) on route_id for realtime api, only god knows why
               agencyId === "hsr"? (parseInt(routeId)+47) + "" : routeId)) {
               entity.tripUpdate.stopTimeUpdate.some(u => {
-                if (u.stopId === stopId) {
+                const now = new Date()
+                if (u.stopId === stopId && (!u.arrival ||
+                  u.arrival.time*1000 >= now.getTime())) {  // only include future bus
                   updates.push(u);
                   // There are only one update for that stop on one trip
                   return true;
@@ -60,16 +62,13 @@ module.exports = async (req, res) => {
         const schedules = await getSchedules(agencyId, stopId, routeId);
         for (let i=0; i<2; i++) {
           // When there are no data on first or second feed, substitute with scheduled one
-          if (!updates[i] || updates[i].scheduleRelationship === "NO_DATA") {
+          if (!updates[i] || updates[i].scheduleRelationship === 2) { // 2 = "NO_DATA"
             updates[i] = schedules[i]
           } else {
-            // the entry of realtime api is StopTimeUpdate class object. 
-            // unpack and reassembles to add tripHeadsign attribute 
             updates[i] = {
               ...(updates[i]),
-              tripHeadsign: schedules[0].tripHeadsign,
-              }
-            
+              tripHeadsign: schedules[0].tripHeadsign
+            }
           }
         }
         res.status(200).json( updates );
@@ -119,10 +118,10 @@ const getSchedules = async (agencyId, stopId, routeId) => {
     results.sort((a, b) => a.valueOf() - b.valueOf());
     results = results.map(update => ({
       arrival: {
-        time: update.valueOf().toString() // for json delivery
+        time: (Math.floor(update.valueOf()/1000)).toString() // for json delivery
       },
       departure: {
-        time: update.valueOf().toString()
+        time: (Math.floor(update.valueOf()/1000)).toString()
       },
       stopId,
       scheduleRelationship: "SCHEDULED",

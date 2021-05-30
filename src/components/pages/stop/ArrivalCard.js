@@ -58,21 +58,24 @@ export default function ArrivalCard({ line, stopId }) {
             </Typography>
           </Grid>
         </Grid>
-        <Grid item>
-          <Typography>
-            Direction: #
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography>
-            Next bus: in # min
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography>
-            Also: in # min
-          </Typography>
-        </Grid>
+        {arrivals.length>0 && ( // this fields displayed with the arrival data
+          <React.Fragment>
+            <Grid item>
+              <Typography>
+                Direction: {arrivals[0].tripHeadsign}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography>
+                Next bus: {`in ${getLeftMin(arrivals[0].arrival.time)} min`}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography>
+                Also: in # min
+              </Typography>
+            </Grid>
+          </React.Fragment>)}
       </Grid>
       <Grid item>
         <CardMenu data={line} />
@@ -89,4 +92,12 @@ const useStyle = makeStyles(theme => ({
     padding: "8px",
     width: "auto"
   }
-}))
+}));
+
+const getLeftMin = timestamp => {
+  const now = new Date()
+  const nowTimestamp = Math.round((now.getTime()) / 1000);
+  timestamp = parseInt(timestamp)
+  let diff = timestamp - nowTimestamp;
+  return Math.round(diff /= 60)
+}
