@@ -102,6 +102,7 @@ const getSchedules = async (agencyId, stopId, routeId) => {
   const client = await pool.connect();
   const result = await client.query(command);
   client.release();
+  let dates = [];
   let results = [];
   if (result && result.rows) {
     result.rows.forEach(update => {
@@ -114,20 +115,30 @@ const getSchedules = async (agencyId, stopId, routeId) => {
       if (d < Date.now())
         d.setDate(d.getDate() + 1);
       // stores only time first, for sorting
-      results.push(d);
+      dates.push(d);
     });
-    results.sort((a, b) => a.valueOf() - b.valueOf());
+    dates.sort((a, b) => a.valueOf() - b.valueOf());
+    let lastTimestamp = 0;
+    for (let date of dates) {
+      const timestamp = Math.floor(date.valueOf()/1000);
+      // Set thrushold as a minute, to avoid same bus with slight difference in the static db data
+      if (timestamp - lastTimestamp > 60) {
+        results.push(timestamp);
+        lastTimestamp = timestamp;
+        if (results.length > 2) break;
+      }
+    }
     results = results.map(update => ({
       arrival: {
-        time: (Math.floor(update.valueOf()/1000)).toString() // for json delivery
+        time: update.toString() // for same formating as realtime data
       },
       departure: {
-        time: (Math.floor(update.valueOf()/1000)).toString()
+        time: update.toString()
       },
       stopId,
       scheduleRelationship: "SCHEDULED",
       tripHeadsign: result.rows[0].trip_headsign,
     }))
   }
-  return results.slice(0, 2);
+  return results;
 }

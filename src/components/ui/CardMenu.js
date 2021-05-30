@@ -48,10 +48,12 @@ export default function CardMenu({ data, setCenter, setMarkers }) {
               <DirectionsBusIcon />
             </Grid>
             )}
-          {/* on map - for line, stop */}
+          {/* on map - for line, stop (not on arrival) */}
+          {(dataType === "line" || dataType === "stop") && (
           <Grid>
             <MapOutlinedIcon onClick={handleClickMapIcon} />
           </Grid>
+          )}
         </Grid>
       </Grid>
     </Grid>

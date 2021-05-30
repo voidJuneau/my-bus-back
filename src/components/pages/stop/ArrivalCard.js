@@ -84,7 +84,7 @@ export default function ArrivalCard({ line, stopId }) {
           </React.Fragment>)}
       </Grid>
       <Grid item>
-        <CardMenu data={line} />
+        <CardMenu data={arrivals} />
       </Grid>
     </Grid>
   )
@@ -104,6 +104,7 @@ const getDelayMessage = delay => {
   // if (!delay) return "(on time)";
   if (!delay) return "";
   delay = Math.ceil(delay / 60);
+  if (delay === 0) return `(On time)`
   if (delay > 0) return `(${delay} minutes delayed)`
   return `(${-delay} minutes early)`
 }
