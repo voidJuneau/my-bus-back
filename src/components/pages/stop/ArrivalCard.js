@@ -67,7 +67,8 @@ export default function ArrivalCard({ line, stopId }) {
             </Grid>
             <Grid item container direction="row" nowrap>
               <Typography style={{marginRight:"0.2rem"}}>
-                Next bus: in {`${getLeftMin(arrivals[0].arrival.time)}`} min  
+                Next bus: {getLeftMin(arrivals[0].arrival.time) === 0? "now" :
+                  `in ${getLeftMin(arrivals[0].arrival.time)} min`}
               </Typography>
               <Typography>
                 {getDelayMessage(arrivals[0].arrival.delay)}
