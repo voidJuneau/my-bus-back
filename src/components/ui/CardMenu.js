@@ -8,7 +8,7 @@ import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 
 import StopMarker from "../map/StopMarker";
 
-export default function CardMenu({ data, setCenter, setMarkers }) {
+export default function CardMenu({ data, setCenter, setMarkers, setIsMap }) {
   const classes = useStyle();
 
   let dataType;
@@ -20,6 +20,7 @@ export default function CardMenu({ data, setCenter, setMarkers }) {
   const handleClickMapIcon = () => {
     if (dataType === "stop") {
       setMarkers([(<StopMarker data={data} />)]);
+      setIsMap(true);
     }
   }
 

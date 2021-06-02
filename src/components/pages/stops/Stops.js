@@ -8,7 +8,7 @@ const getStops = async (limit, page) => {
   return await (await fetch(`/api/stops?limit=${limit}&page=${page}`)).json();
 }
 
-export default function Stops({ setCenter, setMarkers }) {
+export default function Stops({ setCenter, setMarkers, setIsMap }) {
   const classes = useStyles();
   const [ page, setPage ] = useState(1);
   const [ stops, setStops ] = useState([]);
@@ -27,7 +27,8 @@ export default function Stops({ setCenter, setMarkers }) {
   return (
     <Container>
       {stops.map(s => (<StopListCard stop={s} key={s.stop_id + s.stop_code} 
-                          setCenter={setCenter} setMarkers={setMarkers} />))}
+                          setCenter={setCenter} setMarkers={setMarkers}
+                          setIsMap={setIsMap} />))}
       <div className={classes.root}>
         <Pagination count={totalPages} siblingCount={1} page={page}
           showFirstButton showLastButton

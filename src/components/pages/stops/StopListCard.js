@@ -10,7 +10,7 @@ const hsrLogo = require("../../../images/hsr.png");
 const goLogo = require("../../../images/go.svg");
 const burlLogo = require("../../../images/burl.png");
 
-export default function StopListCard({ stop, setCenter, setMarkers }) {
+export default function StopListCard({ stop, setCenter, setMarkers, setIsMap }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
   let logo;
@@ -40,10 +40,9 @@ export default function StopListCard({ stop, setCenter, setMarkers }) {
 
   return (
     <ThemeProvider theme={theme} >
-      <Link to={`/stop/${stop.agency_id}/${stop.stop_id}`} >
-        <Grid container component={Card} 
-          alignItems="center"
-          className={cx(classes.lineBox, shadowStyles.root)} >
+      <Grid container component={Card} 
+        alignItems="center"
+        className={cx(classes.lineBox, shadowStyles.root)} >
           <Grid item className={classes.listBoxItem}>
             <img src={logo.default} alt="Agency logo" width="32px" />
           </Grid>
@@ -51,20 +50,21 @@ export default function StopListCard({ stop, setCenter, setMarkers }) {
             {stop.stop_code}
           </Grid>
           <Grid item container direction="column" className={classes.listBoxItem} >
+        <Link to={`/stop/${stop.agency_id}/${stop.stop_id}`} >
             <Grid item >
               <Typography variant="body1">
                 {stop.stop_name}
               </Typography>
             </Grid>
+        </Link>
             <Grid item >
               <Typography variant="caption">
                 {stop.stop_desc}
               </Typography>
             </Grid>
           </Grid>
-          <CardMenu data={stop} setCenter={setCenter} setMarkers={setMarkers} />
-        </Grid>
-      </Link>
+          <CardMenu data={stop} setCenter={setCenter} setMarkers={setMarkers} setIsMap={setIsMap} />
+      </Grid>
     </ThemeProvider>
   );
 }
