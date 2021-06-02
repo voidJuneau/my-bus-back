@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { HashRouter } from 'react-router-dom'
-import { Box, Container, createMuiTheme, Grid, MuiThemeProvider } from '@material-ui/core';
+import { Box, Container, createMuiTheme, Grid, makeStyles, MuiThemeProvider } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
 import amber from '@material-ui/core/colors/amber';
 
 import './App.css';
 import Side from './components/ui/Side';
 import Map from './components/map/Map';
+import { Block } from '@material-ui/icons';
 
 const theme = createMuiTheme({
   palette: {
@@ -24,6 +25,8 @@ const App = () => {
   const [ markers, setMarkers ] = useState([]);
   const [ isMap, setIsMap ] = useState(false);
 
+  const classes = useStyles();
+
   useEffect(() => {
     console.log(markers);
   }, [markers])
@@ -36,12 +39,13 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <Container disableGutters>
           <Grid container>
-            <Grid item xs={12} sm={12} md={4} component={Box} display={isMap && {xs:"none", sm:"none", md:4}} >
+            <Grid item xs={12} sm={12} md={4}
+              className={isMap ? classes.hide : classes.show} >
               <Side setCenter={setCenter} setMarkers={setMarkers}
                 isMap={isMap} setIsMap={setIsMap} />
             </Grid>
-            <Grid item xs={12} sm={12} md={8} >
-            {/* <Grid item xs={12} sm={12} md={8} component={Box} display={!isMap && {xs:"none", sm:"none", md:8}} > */}
+            <Grid item xs={12} sm={12} md={8}
+              className={!isMap ? classes.hide : classes.show}>
               <Map zoom={10} center={center} markers={markers}
                 isMap={isMap} setIsMap={setIsMap} />
             </Grid>
@@ -51,5 +55,18 @@ const App = () => {
     </HashRouter>
   )
 }
+
+const useStyles = makeStyles(theme => ({
+  show: {
+    [theme.breakpoints.down("sm")]: {
+      display: "block"
+    }
+  },
+  hide: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
+  }
+}))
 
 export default App;
