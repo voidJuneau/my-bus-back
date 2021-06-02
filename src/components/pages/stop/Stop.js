@@ -6,7 +6,7 @@ import StopHeaderCard from "./StopHeaderCard";
 import ArrivalCard from "./ArrivalCard";
 import StopMarker from "../../map/StopMarker";
 
-export default function Stop({ setCenter, setMarkers }) {
+export default function Stop({ setCenter, setMarkers, setIsMap }) {
   const { aId, sId } = useParams();
   const [ stop, setStop ] = useState({});
   const [ lines, setLines ] = useState([]);
@@ -31,7 +31,7 @@ export default function Stop({ setCenter, setMarkers }) {
     <Container>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <StopHeaderCard stop={stop} />
+          <StopHeaderCard stop={stop} setMarkers={setMarkers} setIsMap={setIsMap} />
         </Grid>
         {lines.map(l => (
           <Grid item key={l.route_id}>

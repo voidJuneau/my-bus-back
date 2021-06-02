@@ -22,7 +22,7 @@ export default function Stops({ setCenter, setMarkers, setIsMap }) {
   useEffect(() => {
     getStops(limit, page)
     .then(stops => setStops(stops));
-  }, [page])
+  }, [page]);
   
   return (
     <Container>

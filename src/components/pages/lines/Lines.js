@@ -8,7 +8,7 @@ const getLines = async (limit, page) => {
   return await (await fetch(`/api/lines?limit=${limit}&page=${page}`)).json();
 }
 
-export default function Lines({ setCenter, setMarkers }) {
+export default function Lines({ setCenter, setMarkers, isMap, setIsMap }) {
   const classes = useStyles();
   const [ page, setPage ] = useState(1);
   const [ lines, setLines ] = useState([]);
@@ -27,7 +27,8 @@ export default function Lines({ setCenter, setMarkers }) {
   return (
     <Container>
       {lines.map(d => (<LineCard line={d} key={d.route_id}
-                          setCenter={setCenter} setMarkers={setMarkers} />))}
+                          setCenter={setCenter} setMarkers={setMarkers}
+                          isMap={isMap} setIsMap={setIsMap} />))}
       <div className={classes.root}>
         <Pagination count={totalPages} onChange={handleChange} />
       </div>

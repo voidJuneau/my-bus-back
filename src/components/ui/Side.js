@@ -14,7 +14,7 @@ export default function Side({ setCenter, setMarkers, isMap, setIsMap }) {
   return (
     <div> 
       <div className={classes.sideMenu}>
-        <Menu />
+        <Menu setIsMap={setIsMap} />
       </div>
       <Switch>
         <Route path="/favourate" >

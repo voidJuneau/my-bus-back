@@ -3,7 +3,7 @@ import { Card, createMuiTheme, Grid, Typography } from "@material-ui/core";
 import RoomIcon from '@material-ui/icons/Room';
 import CardMenu from "../../ui/CardMenu";
 
-export default function StopHeaderCard({ stop }) {
+export default function StopHeaderCard({ stop, setMarkers, setIsMap }) {
   const theme = createMuiTheme({
     typography: {
       body1: {},
@@ -41,7 +41,7 @@ export default function StopHeaderCard({ stop }) {
         </Typography>
       </Grid>
       <Grid item >
-        <CardMenu data={stop} />
+        <CardMenu data={stop} setMarkers={setMarkers} setIsMap={setIsMap} />
       </Grid>
     </Grid>
   )

@@ -15,7 +15,7 @@ export default function Map({ zoom, center, markers, isMap, setIsMap }) {
   return (
     <Grid container>
       <Grid item xs={12} sm={12} component={Box} display={{md: "none"}}>
-        <Menu />
+        <Menu setIsMap={setIsMap} />
       </Grid>
       <Grid item xs={12} sm={12}>
         <Box display={{md: "none"}}>

@@ -9,7 +9,7 @@ const hsrLogo = require("../../../images/hsr.png");
 const goLogo = require("../../../images/go.svg");
 const burlLogo = require("../../../images/burl.png");
 
-export default function LineCard({ line, setCenter, setMarkers }) {
+export default function LineCard({ line, setCenter, setMarkers, isMap, setIsMap }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
   let logo;
@@ -44,7 +44,8 @@ export default function LineCard({ line, setCenter, setMarkers }) {
       <Grid item className={classes.listBoxItem}>
         {line.route_long_name}
       </Grid>
-      <CardMenu data={line} setCenter={setCenter} setMarkers={setMarkers} />
+      <CardMenu data={line} setCenter={setCenter} setMarkers={setMarkers}
+        sMap={isMap} setIsMap={setIsMap} />
     </Grid>
   );
 }

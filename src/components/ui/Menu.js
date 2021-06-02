@@ -7,8 +7,13 @@ import DirectionsBusIcon from '@material-ui/icons/DirectionsBus';
 import RoomIcon from '@material-ui/icons/Room';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-export default function Menu() {
+export default function Menu({ setIsMap }) {
   const classes = useStyles();
+
+  // Hide map
+  const handleClick = () => {
+    setIsMap(false);
+  }
 
   return (
     <div className={classes.root}>
@@ -19,27 +24,27 @@ export default function Menu() {
               component="nav" 
               aria-labelledby="main navigation"
               className={classes.navDisplayFlex} >
-              <Grid item xs>
+              <Grid item xs onClick={handleClick} >
                 <MenuOption label="Search" path="/search">
                   <SearchOutlinedIcon fontSize="large" />
                 </MenuOption>
               </Grid>
-              <Grid item xs>
+              <Grid item xs onClick={handleClick} >
                 <MenuOption label="Favourate" path="/favourate">
                   <StarOutlineOutlinedIcon fontSize="large" />
                 </MenuOption>
               </Grid>
-              <Grid item xs>
+              <Grid item xs onClick={handleClick} >
                 <MenuOption label="Lines" path="/lines">
                   <DirectionsBusIcon fontSize="large" />
                 </MenuOption>
               </Grid>
-              <Grid item xs>
+              <Grid item xs onClick={handleClick} >
                 <MenuOption label="Stops" path="/stops">
                   <RoomIcon fontSize="large" />
                 </MenuOption>
               </Grid>
-              <Grid item xs>
+              <Grid item xs onClick={handleClick} >
                 <MenuOption label="LogIn" path="/memeber">
                   <LockOutlinedIcon fontSize="large" />
                 </MenuOption>
