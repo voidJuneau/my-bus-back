@@ -37,20 +37,18 @@ const App = () => {
   return (
     <HashRouter>
       <MuiThemeProvider theme={theme}>
-        <Container disableGutters>
-          <Grid container>
-            <Grid item xs={12} sm={12} md={4}
-              className={isMap ? classes.hide : classes.show} >
-              <Side setCenter={setCenter} setMarkers={setMarkers}
-                isMap={isMap} setIsMap={setIsMap} />
-            </Grid>
-            <Grid item xs={12} sm={12} md={8}
-              className={!isMap ? classes.hide : classes.show}>
-              <Map zoom={10} center={center} markers={markers}
-                isMap={isMap} setIsMap={setIsMap} />
-            </Grid>
+        <Grid container>
+          <Grid item xs={12} sm={12} md={4}
+            className={isMap ? classes.hide : classes.show} >
+            <Side setCenter={setCenter} setMarkers={setMarkers}
+              isMap={isMap} setIsMap={setIsMap} />
           </Grid>
-        </Container>
+          <Grid item xs={12} sm={12} md={8}
+            className={!isMap ? classes.hide : classes.show}>
+            <Map zoom={10} center={center} markers={markers}
+              isMap={isMap} setIsMap={setIsMap} />
+          </Grid>
+        </Grid>
       </MuiThemeProvider>
     </HashRouter>
   )

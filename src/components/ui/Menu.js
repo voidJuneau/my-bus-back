@@ -16,44 +16,42 @@ export default function Menu({ setIsMap }) {
   }
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar disableGutters>
-          <Grid container className={classes.navbarDisplayFlex}>
-            <List 
-              component="nav" 
-              aria-labelledby="main navigation"
-              className={classes.navDisplayFlex} >
-              <Grid item xs onClick={handleClick} >
-                <MenuOption label="Search" path="/search">
-                  <SearchOutlinedIcon fontSize="large" />
-                </MenuOption>
-              </Grid>
-              <Grid item xs onClick={handleClick} >
-                <MenuOption label="Favourate" path="/favourate">
-                  <StarOutlineOutlinedIcon fontSize="large" />
-                </MenuOption>
-              </Grid>
-              <Grid item xs onClick={handleClick} >
-                <MenuOption label="Lines" path="/lines">
-                  <DirectionsBusIcon fontSize="large" />
-                </MenuOption>
-              </Grid>
-              <Grid item xs onClick={handleClick} >
-                <MenuOption label="Stops" path="/stops">
-                  <RoomIcon fontSize="large" />
-                </MenuOption>
-              </Grid>
-              <Grid item xs onClick={handleClick} >
-                <MenuOption label="LogIn" path="/memeber">
-                  <LockOutlinedIcon fontSize="large" />
-                </MenuOption>
-              </Grid>
-            </List>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static">
+      <Toolbar disableGutters>
+        <Grid container className={classes.navbarDisplayFlex}>
+          <List 
+            component="nav" 
+            aria-labelledby="main navigation"
+            className={classes.navDisplayFlex} >
+            <Grid item xs onClick={handleClick} >
+              <MenuOption label="Search" path="/search">
+                <SearchOutlinedIcon fontSize="large" />
+              </MenuOption>
+            </Grid>
+            <Grid item xs onClick={handleClick} >
+              <MenuOption label="Favourate" path="/favourate">
+                <StarOutlineOutlinedIcon fontSize="large" />
+              </MenuOption>
+            </Grid>
+            <Grid item xs onClick={handleClick} >
+              <MenuOption label="Lines" path="/lines">
+                <DirectionsBusIcon fontSize="large" />
+              </MenuOption>
+            </Grid>
+            <Grid item xs onClick={handleClick} >
+              <MenuOption label="Stops" path="/stops">
+                <RoomIcon fontSize="large" />
+              </MenuOption>
+            </Grid>
+            <Grid item xs onClick={handleClick} >
+              <MenuOption label="LogIn" path="/memeber">
+                <LockOutlinedIcon fontSize="large" />
+              </MenuOption>
+            </Grid>
+          </List>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   );
 }
 
@@ -61,10 +59,6 @@ const useStyles = makeStyles((theme) => ({
   navbarDisplayFlex: {
     display: "flex",
     justifyContent: "space-between"
-  },
-  root: {
-    flexGrow: 1,
-    // marginBottom: "1rem"
   },
   menuButton: {
     marginRight: theme.spacing(2),
