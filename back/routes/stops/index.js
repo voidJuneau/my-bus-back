@@ -7,6 +7,7 @@ const byLine = require('./byLine');
 // /stops
 lines.get('/', all);
 
+// /stops/count
 lines.get('/count', count);
 
 // /stops/stop_id

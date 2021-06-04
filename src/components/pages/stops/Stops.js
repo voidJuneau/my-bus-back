@@ -16,7 +16,6 @@ export default function Stops({ setCenter, setMarkers, setIsMap }) {
   const classes = useStyles();
   const [ page, setPage ] = useState(1);
   const [ stops, setStops ] = useState([]);
-  const [ count, setCount ] = useState(0);
   const [ totalPages, setTotalPages ] = useState(0);
   const limit = 5;
   
