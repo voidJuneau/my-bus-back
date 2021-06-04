@@ -11,8 +11,8 @@ const pool = new Pool({
   }
 });
 
-// /stops
-// /stops?query=q&limit=5&page=1
+// /stops/count
+// /stops/count?query=q
 module.exports = async (req, res) => {
   const query = req.query.query;
   let page = parseInt(req.query.page);
@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
   const offset = (page - 1) * limit;
 
   let command = 
-    "SELECT DISTINCT s.stop_id, s.stop_code, s.stop_name, s.stop_desc, s.stop_lat, s.stop_lon, s.agency_id " +
+    "SELECT count(DISTINCT s.stop_id) " +
       "FROM stop AS s " +
       "INNER JOIN stop_time AS st ON (s.stop_id = st.stop_id) " +
       "INNER JOIN trip AS t ON (st.trip_id = t.trip_id) " +
@@ -41,15 +41,12 @@ module.exports = async (req, res) => {
                   `stop_code = '${query}'`;
     }
   }
-  command += "ORDER BY agency_id DESC, stop_code ";
-  if (limit)
-    command += `LIMIT ${limit} OFFSET ${offset}`;
   
   try {
     const client = await pool.connect();
     const result = await client.query(command);
     client.release();
-    const results = { 'results': (result) ? result.rows : null};
+    const results = { 'results': (result) ? result.rows[0].count : null};
     res.status(200).json( results.results );
   } catch (err) {
     console.error(err);

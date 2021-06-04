@@ -1,10 +1,13 @@
 const lines = require('express').Router();
 const all = require('./all');
+const count = require('./count');
 const single = require('./single');
 const byLine = require('./byLine');
 
 // /stops
 lines.get('/', all);
+
+lines.get('/count', count);
 
 // /stops/stop_id
 lines.get('/:stopId', single);
