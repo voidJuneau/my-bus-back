@@ -41,7 +41,7 @@ export default function StopHeaderCard({ stop, setMarkers, setIsMap }) {
         </Typography>
       </Grid>
       <Grid item >
-        <CardMenu data={stop} setMarkers={setMarkers} setIsMap={setIsMap} />
+        <CardMenu type="stopHeader" data={stop} setMarkers={setMarkers} setIsMap={setIsMap} />
       </Grid>
     </Grid>
   )

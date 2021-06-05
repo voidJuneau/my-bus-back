@@ -30,7 +30,7 @@ export default function Stops({ setCenter, setMarkers, setIsMap }) {
 
   useEffect(() => {
     getStops(limit, page)
-    .then(stops => {setStops(stops); console.log(stops)});
+    .then(stops => setStops(stops));
   }, [page]);
   
   return (

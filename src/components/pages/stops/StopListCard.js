@@ -62,7 +62,8 @@ export default function StopListCard({ stop, setCenter, setMarkers, setIsMap }) 
               </Typography>
             </Grid>
           </Grid>
-          <CardMenu data={stop} setCenter={setCenter} setMarkers={setMarkers} setIsMap={setIsMap} />
+          <CardMenu type="stop" data={stop} 
+            setCenter={setCenter} setMarkers={setMarkers} setIsMap={setIsMap} />
       </Grid>
         </Link>
     </ThemeProvider>

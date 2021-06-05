@@ -85,7 +85,7 @@ export default function ArrivalCard({ line, stop }) {
           </React.Fragment>)}
       </Grid>
       <Grid item>
-        <CardMenu data={{line, stop, arrivals}} />
+        <CardMenu type="arrival" data={{line, stop, arrivals}} />
       </Grid>
     </Grid>
   )

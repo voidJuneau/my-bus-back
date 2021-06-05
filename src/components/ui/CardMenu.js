@@ -8,17 +8,10 @@ import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 
 import StopMarker from "../map/StopMarker";
 
-export default function CardMenu({ data, setCenter, setMarkers, setIsMap }) {
+export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }) {
   const classes = useStyle();
-
-  let dataType;
-  if (data.route_short_name)
-    dataType = "line"
-    else if (data.stop_name)
-    dataType = "stop"
-
   const handleClickMapIcon = () => {
-    if (dataType === "stop") {
+    if (type === "stop") {
       setMarkers([(<StopMarker data={data} />)]);
       setIsMap(true);
     }
@@ -32,7 +25,7 @@ export default function CardMenu({ data, setCenter, setMarkers, setIsMap }) {
           <StarOutlineOutlinedIcon />
         </Grid>
         <Grid item container xs direction="row" wrap="nowrap" >
-          {dataType === "line" && (
+          {type === "line" && (
             <React.Fragment>
             {/* discussion - for line */}
               <Grid item xs>
@@ -44,13 +37,13 @@ export default function CardMenu({ data, setCenter, setMarkers, setIsMap }) {
               </Grid>
             </React.Fragment>)}
           {/* lines - for stop */}
-          {dataType === "stop" && (
+          {type === "arrival" && (
             <Grid item>
               <DirectionsBusIcon />
             </Grid>
             )}
           {/* on map - for line, stop (not on arrival) */}
-          {(dataType === "line" || dataType === "stop") && (
+          {(type === "line" || type === "stop" || type === "stopHeader") && (
           <Grid>
             <MapOutlinedIcon onClick={handleClickMapIcon} />
           </Grid>

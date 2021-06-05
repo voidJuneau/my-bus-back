@@ -44,7 +44,7 @@ export default function LineCard({ line, setCenter, setMarkers, isMap, setIsMap 
       <Grid item className={classes.listBoxItem}>
         {line.route_long_name}
       </Grid>
-      <CardMenu data={line} setCenter={setCenter} setMarkers={setMarkers}
+      <CardMenu type="line" data={line} setCenter={setCenter} setMarkers={setMarkers}
         sMap={isMap} setIsMap={setIsMap} />
     </Grid>
   );
