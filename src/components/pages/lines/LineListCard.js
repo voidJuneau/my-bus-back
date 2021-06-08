@@ -4,28 +4,11 @@ import { Card, Grid, makeStyles } from "@material-ui/core";
 import { useBouncyShadowStyles } from '@mui-treasury/styles/shadow/bouncy';
 
 import CardMenu from "../../ui/CardMenu";
-
-const hsrLogo = require("../../../images/hsr.png");
-const goLogo = require("../../../images/go.svg");
-const burlLogo = require("../../../images/burl.png");
+import Logo from "../../ui/Logo";
 
 export default function LineListCard({ line, setCenter, setMarkers, isMap, setIsMap }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
-  let logo;
-  switch (line.agency_id.toLowerCase()) {
-    case "hsr":
-      logo = hsrLogo;
-      break;
-    case "go":
-      logo = goLogo;
-      break;
-    case "burlington":
-      logo = burlLogo;
-      break;
-    default:
-      break;
-  }
 
   // TODO: click on card links to stops on that line
   // TODO: on map
@@ -36,7 +19,7 @@ export default function LineListCard({ line, setCenter, setMarkers, isMap, setIs
       alignItems="center"
       className={cx(classes.lineBox, shadowStyles.root)} >
       <Grid item className={classes.listBoxItem}>
-        <img src={logo.default} alt="Agency logo" width="32px" />
+        <Logo agencyId={line.agency_id} />
       </Grid>
       <Grid item className={classes.listBoxItem}>
         {line.route_short_name}

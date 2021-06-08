@@ -5,28 +5,12 @@ import { Card, createMuiTheme, Grid, makeStyles, ThemeProvider, Typography } fro
 import { useBouncyShadowStyles } from '@mui-treasury/styles/shadow/bouncy';
 
 import CardMenu from "../../ui/CardMenu";
-
-const hsrLogo = require("../../../images/hsr.png");
-const goLogo = require("../../../images/go.svg");
-const burlLogo = require("../../../images/burl.png");
+import Logo from "../../ui/Logo";
 
 export default function StopListCard({ stop, setCenter, setMarkers, setIsMap }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
-  let logo;
-  switch (stop.agency_id.toLowerCase()) {
-    case "hsr":
-      logo = hsrLogo;
-      break;
-    case "go":
-      logo = goLogo;
-      break;
-    case "burlington":
-      logo = burlLogo;
-      break;
-    default:
-      break;
-  }
+  const logo = Logo(stop.agency_id)
   
   const theme = createMuiTheme({
     typography: {
@@ -45,7 +29,7 @@ export default function StopListCard({ stop, setCenter, setMarkers, setIsMap }) 
         alignItems="center"
         className={cx(classes.lineBox, shadowStyles.root)} >
           <Grid item className={classes.listBoxItem}>
-            <img src={logo.default} alt="Agency logo" width="32px" />
+            <Logo agencyId={stop.agency_id} />
           </Grid>
           <Grid item className={classes.listBoxItem}>
             {stop.stop_code}

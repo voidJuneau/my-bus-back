@@ -6,6 +6,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import LineHeaderCard from "./LineHeaderCard";
 import StopMarker from "../../map/StopMarker";
 import StopListCard from "../stops/StopListCard";
+import Logo from "../../ui/Logo";
 
 const getCount = async (aId, lId) => {
   return await (await fetch(`/api/stops/${aId}/route/${lId}/count`)).json();
@@ -23,6 +24,7 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
   const [ stops, setStops ] = useState([]);
   const [ totalPages, setTotalPages ] = useState(0);
   const limit = 5;
+  const logo = Logo(aId);
 
   useEffect(() => {
     // Get stops on that line
