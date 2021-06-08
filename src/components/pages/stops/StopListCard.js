@@ -1,13 +1,14 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import cx from 'clsx';
 import { Card, createMuiTheme, Grid, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import { useBouncyShadowStyles } from '@mui-treasury/styles/shadow/bouncy';
+import RoomIcon from '@material-ui/icons/Room';
 
 import CardMenu from "../../ui/CardMenu";
 import Logo from "../../ui/Logo";
 
-export default function StopListCard({ stop, setCenter, setMarkers, setIsMap }) {
+export default function StopListCard({ stop, setCenter, setMarkers, setIsMap, onList }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
   const logo = Logo(stop.agency_id)
@@ -29,7 +30,8 @@ export default function StopListCard({ stop, setCenter, setMarkers, setIsMap }) 
         alignItems="center"
         className={cx(classes.lineBox, shadowStyles.root)} >
           <Grid item className={classes.listBoxItem}>
-            <Logo agencyId={stop.agency_id} />
+            {onList ? (<RoomIcon />)
+            : (<Logo agencyId={stop.agency_id} />)}
           </Grid>
           <Grid item className={classes.listBoxItem}>
             {stop.stop_code}

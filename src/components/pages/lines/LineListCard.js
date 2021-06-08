@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import cx from 'clsx';
 import { Card, Grid, makeStyles } from "@material-ui/core";
 import { useBouncyShadowStyles } from '@mui-treasury/styles/shadow/bouncy';
@@ -15,21 +16,23 @@ export default function LineListCard({ line, setCenter, setMarkers, isMap, setIs
   // TODO(secondary): discussion
 
   return (
-    <Grid container component={Card} 
-      alignItems="center"
-      className={cx(classes.lineBox, shadowStyles.root)} >
-      <Grid item className={classes.listBoxItem}>
-        <Logo agencyId={line.agency_id} />
+    <Link to={`/line/${line.agency_id}/${line.route_id}`} >
+      <Grid container component={Card} 
+        alignItems="center"
+        className={cx(classes.lineBox, shadowStyles.root)} >
+        <Grid item className={classes.listBoxItem}>
+          <Logo agencyId={line.agency_id} />
+        </Grid>
+        <Grid item className={classes.listBoxItem}>
+          {line.route_short_name}
+        </Grid>
+        <Grid item className={classes.listBoxItem}>
+          {line.route_long_name}
+        </Grid>
+        <CardMenu type="line" data={line} setCenter={setCenter} setMarkers={setMarkers}
+          sMap={isMap} setIsMap={setIsMap} />
       </Grid>
-      <Grid item className={classes.listBoxItem}>
-        {line.route_short_name}
-      </Grid>
-      <Grid item className={classes.listBoxItem}>
-        {line.route_long_name}
-      </Grid>
-      <CardMenu type="line" data={line} setCenter={setCenter} setMarkers={setMarkers}
-        sMap={isMap} setIsMap={setIsMap} />
-    </Grid>
+    </Link>
   );
 }
 

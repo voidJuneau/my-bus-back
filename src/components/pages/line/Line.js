@@ -60,7 +60,7 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
         </Grid>
         {stops.map(s => (
           <Grid item key={s.stop_id} >
-            <StopListCard stop={s} key={s.stop_id} setMarkers={setMarkers} setIsMap={setIsMap} />
+            <StopListCard stop={s} key={s.stop_id} setMarkers={setMarkers} setIsMap={setIsMap} onList />
           </Grid>
         ))}
       </Grid>

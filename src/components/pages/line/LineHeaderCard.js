@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, createMuiTheme, Grid, Typography } from "@material-ui/core";
 import RoomIcon from '@material-ui/icons/Room';
+
 import CardMenu from "../../ui/CardMenu";
+import Logo from "../../ui/Logo";
 
 export default function StopHeaderCard({ line, setMarkers, setIsMap }) {
   const theme = createMuiTheme({
@@ -18,7 +20,7 @@ export default function StopHeaderCard({ line, setMarkers, setIsMap }) {
   return (
     <Grid container component={Card} alignItems="center" wrap="nowrap" spacing={1} >
       <Grid item >
-        <RoomIcon />
+        <Logo agencyId={line.agency_id} />
       </Grid>
       <Grid item container direction="column" >
         <Grid item container direction="row" spacing={1}>
