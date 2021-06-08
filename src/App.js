@@ -26,14 +26,7 @@ const App = () => {
   const [ isMap, setIsMap ] = useState(false);
 
   const classes = useStyles();
-
-  useEffect(() => {
-    console.log(markers);
-  }, [markers])
-
-  useEffect(() => {
-    console.log("isMap:", isMap);
-  }, [isMap])
+  
   return (
     <HashRouter>
       <MuiThemeProvider theme={theme}>

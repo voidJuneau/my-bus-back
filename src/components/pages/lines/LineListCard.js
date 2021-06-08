@@ -9,7 +9,7 @@ const hsrLogo = require("../../../images/hsr.png");
 const goLogo = require("../../../images/go.svg");
 const burlLogo = require("../../../images/burl.png");
 
-export default function LineCard({ line, setCenter, setMarkers, isMap, setIsMap }) {
+export default function LineListCard({ line, setCenter, setMarkers, isMap, setIsMap }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
   let logo;

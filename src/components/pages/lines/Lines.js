@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, makeStyles } from "@material-ui/core";
 import Pagination from '@material-ui/lab/Pagination';
 
-import LineCard from "./LineCard";
+import LineListCard from "./LineListCard";
 
 const getCount = async () => {
   return await (await fetch("/api/lines/count")).json();
@@ -35,7 +35,7 @@ export default function Lines({ setCenter, setMarkers, isMap, setIsMap }) {
 
   return (
     <Container>
-      {lines.map(d => (<LineCard line={d} key={d.route_id}
+      {lines.map(d => (<LineListCard line={d} key={d.route_id}
                           setCenter={setCenter} setMarkers={setMarkers}
                           isMap={isMap} setIsMap={setIsMap} />))}
       <div className={classes.root}>

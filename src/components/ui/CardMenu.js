@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Grid, makeStyles } from "@material-ui/core";
 import StarOutlineOutlinedIcon from '@material-ui/icons/StarOutlineOutlined';
 import KeyboardOutlinedIcon from '@material-ui/icons/KeyboardOutlined';
@@ -36,10 +37,12 @@ export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }
                 <RoomIcon />
               </Grid>
             </React.Fragment>)}
-          {/* lines - for stop */}
+          {/* lines - for arrival */}
           {type === "arrival" && (
             <Grid item>
-              <DirectionsBusIcon />
+              <Link to={`/line/${data.line.agency_id}/${data.line.route_id}`}>
+                <DirectionsBusIcon />
+              </Link>
             </Grid>
             )}
           {/* on map - for line, stop (not on arrival) */}
