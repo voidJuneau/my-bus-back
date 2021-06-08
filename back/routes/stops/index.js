@@ -1,19 +1,23 @@
-const lines = require('express').Router();
+const stops = require('express').Router();
 const all = require('./all');
 const count = require('./count');
 const single = require('./single');
 const byLine = require('./byLine');
+const byLineCount = require('./byLineCount');
 
-// /lines
-lines.get('/', all);
+// /stops
+stops.get('/', all);
 
-// /lines/count
-lines.get('/count', count);
+// /stops/count
+stops.get('/count', count);
 
-// /lines/stop_id
-lines.get('/:stopId', single);
+// /stops/stop_id
+stops.get('/:stopId', single);
 
-// /lines/agency_id/route/route_id
-lines.get('/:agencyId/route/:routeId', byLine)
+// /stops/agency_id/route/route_id
+stops.get('/:agencyId/route/:routeId', byLine)
 
-module.exports = lines;
+// /stops/agency_id/route/route_id/count
+stops.get('/:agencyId/route/:routeId/count', byLineCount)
+
+module.exports = stops;

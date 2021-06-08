@@ -6,3 +6,4 @@
   - all: api/stops
   - single: api/stops/{stopId}
   - by line: api/stops/{agencyId}/route/{routeId}
+  - by line count: api/stops/{agencyId}/route/{routeId}/count

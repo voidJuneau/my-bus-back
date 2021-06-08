@@ -31,11 +31,11 @@ module.exports = async (req, res) => {
       "FROM stop AS s " +
       "INNER JOIN stop_time AS st ON (s.stop_id = st.stop_id) " +
       "INNER JOIN trip AS t ON (st.trip_id = t.trip_id) " +
-      "INNER JOIN route AS r ON (t.route_id = r.route_id)";
+      "INNER JOIN route AS r ON (t.route_id = r.route_id) " +
+      "WHERE stop_code IS NOT NULL "
   if (query) { 
-    command += `WHERE stop_code IS NOT NULL ` +
-                `LOWER(stop_name) LIKE LOWER('%${query}%') OR ` +
-                `LOWER(stop_desc) LIKE LOWER('%${query}%') `;
+    command += `LOWER(stop_name) LIKE LOWER('%${query}%') OR ` +
+               `LOWER(stop_desc) LIKE LOWER('%${query}%') `;
     if (parseInt(query)) {
       command += `OR stop_id = '${query}' OR ` +
                   `stop_code = '${query}'`;

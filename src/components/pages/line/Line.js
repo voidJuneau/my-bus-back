@@ -20,7 +20,7 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
     // Load stops on that line
     fetch(`/api/stops/${aId}/route/${lId}`)
     .then(res => res.json())
-    .then(data => setStops(data); console.log(data));
+    .then(data => setStops(data));
   }, [])
 
   return (
@@ -30,7 +30,7 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
           <LineHeaderCard line={line} setMarkers={setMarkers} setIsMap={setIsMap} />
         </Grid>
         {stops.map(s => (
-          <Grid item>
+          <Grid item key={s.stop_id} >
             <StopListCard stop={s} key={s.stop_id} setMarkers={setMarkers} setIsMap={setIsMap} />
           </Grid>
         ))}
