@@ -4,16 +4,16 @@ const count = require('./count');
 const single = require('./single');
 const byLine = require('./byLine');
 
-// /stops
+// /lines
 lines.get('/', all);
 
-// /stops/count
+// /lines/count
 lines.get('/count', count);
 
-// /stops/stop_id
+// /lines/stop_id
 lines.get('/:stopId', single);
 
-// /stops/agency_id/route_id
-lines.get('/:agencyId/:routeId', byLine)
+// /lines/agency_id/route/route_id
+lines.get('/:agencyId/route/:routeId', byLine)
 
 module.exports = lines;

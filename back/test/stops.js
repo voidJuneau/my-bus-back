@@ -102,7 +102,7 @@ describe('/GET a stop', () => {
 describe('/GET stops by line', () => {
   it('It should GET stops on specific line', (done) => {
     chai.request(server)
-      .get('/api/stops/go/05210621-16')
+      .get('/api/stops/go/route/05210621-16')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
