@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom'
-import { Box, Container, createMuiTheme, Grid, makeStyles, MuiThemeProvider } from '@material-ui/core';
+import { createMuiTheme, Grid, makeStyles, MuiThemeProvider } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
 import amber from '@material-ui/core/colors/amber';
 
 import './App.css';
 import Side from './components/ui/Side';
 import Map from './components/map/Map';
-import { Block } from '@material-ui/icons';
 
 const theme = createMuiTheme({
   palette: {

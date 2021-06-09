@@ -11,7 +11,6 @@ import Logo from "../../ui/Logo";
 export default function StopListCard({ stop, setCenter, setMarkers, setIsMap, onList }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
-  const logo = Logo(stop.agency_id)
   
   const theme = createMuiTheme({
     typography: {

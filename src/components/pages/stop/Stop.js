@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom'
-import { Card, Container, Grid } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 
 import StopHeaderCard from "./StopHeaderCard";
 import ArrivalCard from "./ArrivalCard";
@@ -25,7 +25,7 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
     .then(res => res.json())
     .then(data => setLines(data));
     
-  }, [])
+  })
 
   return (
     <Container>

@@ -1,21 +1,10 @@
 import React from "react";
-import { Card, createMuiTheme, Grid, Typography } from "@material-ui/core";
-import RoomIcon from '@material-ui/icons/Room';
+import { Card, Grid, Typography } from "@material-ui/core";
 
 import CardMenu from "../../ui/CardMenu";
 import Logo from "../../ui/Logo";
 
 export default function StopHeaderCard({ line, setMarkers, setIsMap }) {
-  const theme = createMuiTheme({
-    typography: {
-      body1: {},
-      caption: {
-        fontStyle: "italic",
-        textAlign: "center"
-        // fontSize: "0.7rem"
-      }
-    }
-  });
 
   return (
     <Grid container component={Card} alignItems="center" wrap="nowrap" spacing={1} >

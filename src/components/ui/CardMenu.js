@@ -26,7 +26,7 @@ export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }
           <StarOutlineOutlinedIcon />
         </Grid>
         <Grid item container xs direction="row" wrap="nowrap" >
-          {type === "line" && (
+          {(type === "line" || type === "lineHeader") && (
             <React.Fragment>
             {/* discussion - for line */}
               <Grid item xs>
@@ -46,7 +46,7 @@ export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }
             </Grid>
             )}
           {/* on map - for line, stop (not on arrival) */}
-          {(type === "line" || type === "stop" || type === "stopHeader") && (
+          {(type === "line" || type === "stop" || type === "stopHeader" || type === "lineHeader") && (
           <Grid>
             <MapOutlinedIcon onClick={handleClickMapIcon} />
           </Grid>

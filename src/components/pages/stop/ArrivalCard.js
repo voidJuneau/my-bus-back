@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, createMuiTheme, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Card, Grid, makeStyles, Typography } from "@material-ui/core";
 
 import CardMenu from "../../ui/CardMenu";
 import Logo from "../../ui/Logo";
@@ -7,21 +7,13 @@ import Logo from "../../ui/Logo";
 export default function ArrivalCard({ line, stop }) {
   const [ arrivals, setArrivals ] = useState([]);
   const classes = useStyle();
-  const theme = createMuiTheme({
-    Typography: {
-      body1: {},
-      caption: {
-        fontStyle: "italic",
-        textAlign: "center"
-      }
-    }
-  });
+
   // /api/arrivals/hsr/stop/1499/route/4421
   useEffect(() => {
     fetch(`api/arrivals/${line.agency_id}/stop/${stop.stop_id}/route/${line.route_id}`)
     .then(res => res.json())
     .then(data => setArrivals(data));
-  }, [])
+  })
   
   return (
     <Grid container component={Card} alignItems="center" wrap="nowrap" >
