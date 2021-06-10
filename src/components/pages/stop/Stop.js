@@ -6,6 +6,13 @@ import StopHeaderCard from "./StopHeaderCard";
 import ArrivalCard from "./ArrivalCard";
 import StopMarker from "../../map/StopMarker";
 
+const getStop = async sId => {
+  return await (await fetch(`/api/stops/${sId}`)).json();
+}
+const getLines = async (aId, sId) => {
+  return await (await fetch(`/api/lines/${aId}/stop/${sId}`)).json();
+}
+
 export default function Stop({ setCenter, setMarkers, setIsMap }) {
   const { aId, sId } = useParams();
   const [ stop, setStop ] = useState({});
@@ -13,19 +20,16 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
 
   useEffect(() => {
     // Load stop info
-    fetch(`/api/stops/${sId}`)
-    .then(res => res.json())
+    getStop(sId)
     .then(data => {
       setStop(data)
-      setMarkers([(<StopMarker data={data} />)])
+      setMarkers([(<StopMarker data={data} key={data.stop_id} />)])
     });
     
     // Load lines on that stop
-    fetch(`/api/lines/${aId}/stop/${sId}`)
-    .then(res => res.json())
+    getLines(aId, sId)
     .then(data => setLines(data));
-    
-  })
+  }, [])
 
   return (
     <Container>

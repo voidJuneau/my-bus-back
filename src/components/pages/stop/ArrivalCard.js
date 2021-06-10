@@ -13,7 +13,7 @@ export default function ArrivalCard({ line, stop }) {
     fetch(`api/arrivals/${line.agency_id}/stop/${stop.stop_id}/route/${line.route_id}`)
     .then(res => res.json())
     .then(data => setArrivals(data));
-  })
+  }, [])
   
   return (
     <Grid container component={Card} alignItems="center" wrap="nowrap" >

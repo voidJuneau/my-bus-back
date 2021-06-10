@@ -22,7 +22,7 @@ export default function Lines({ setCenter, setMarkers, isMap, setIsMap }) {
   useEffect(() => {
     getCount()
     .then(res => setTotalPages(Math.ceil(res / limit)));
-  }, [])
+  }, [setMarkers])
 
   useEffect(() => {
     getLines(limit, page)

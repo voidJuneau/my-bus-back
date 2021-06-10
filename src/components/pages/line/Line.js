@@ -32,12 +32,12 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
     // Get line info
     fetch(`/api/lines/${aId}/route/${lId}`)
     .then(res => res.json())
-    .then(data => setLine(data));
+    .then(data => {setLine(data); console.log(data)});
     
     // Get count of stops for that line
     getCount(aId, lId)
     .then(res => setTotalPages(Math.ceil(res / limit)));
-  })
+  }, [aId, lId])
   
   const handleChange = (event, value) => {
     setPage(value);
