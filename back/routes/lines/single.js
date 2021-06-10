@@ -29,18 +29,20 @@ module.exports = async (req, res) => {
 
       // Aditional data for a line
       // Get first stop
-      command = 
-        `SELECT DISTINCT s.stop_id
-          FROM stop_time AS st
-          INNER JOIN stop AS s ON (st.stop_id = s.stop_id) 
-          INNER JOIN trip AS t ON (st.trip_id = t.trip_id) 
-          INNER JOIN route AS r ON (t.route_id = r.route_id)
-          WHERE r.route_id = '${routeId}' AND 
-            LOWER(s.agency_id) LIKE LOWER('${agencyId}')
-            LIMIT 1`
-      result = await client.query(command);
-      stopId = result.rows[0].stop_id
-      line.stop_id = stopId
+      let stopId = "141" // if it's Go transit, set the first stop as Hamilton go GO always
+      if (agencyId.toLowerCase() !== "go") {
+        command = 
+          `SELECT DISTINCT s.stop_id
+            FROM stop_time AS st
+            INNER JOIN stop AS s ON (st.stop_id = s.stop_id) 
+            INNER JOIN trip AS t ON (st.trip_id = t.trip_id) 
+            INNER JOIN route AS r ON (t.route_id = r.route_id)
+            WHERE r.route_id = '${routeId}' AND 
+              LOWER(s.agency_id) LIKE LOWER('${agencyId}')
+              LIMIT 1`
+        result = await client.query(command);
+        stopId = result.rows[0].stop_id
+      }
 
       // get stop_times on one stop
       command = 
@@ -76,13 +78,14 @@ module.exports = async (req, res) => {
       let maxGap = 0;
       for (let i=1; i<times.length; i++) {
         const gap = times[i] - times[i-1];
+        console.log(gap/1000/60, times[i-1], times[i])
         if (gap > dayGap) { // this two buses are last/first of two days
           maxGap = dayGap
           dayGap = gap
           first = times[i]
           last = times[i-1]
         } else if (gap > maxGap) { // smaller then day gap, but larger then max gap
-          maxGap = maxGap
+          maxGap = gap
         } else if (gap < minGap && gap > 1000 * 60 * 4) { // new min gap, ignoring pratical duplates
           minGap = gap
         }
@@ -90,8 +93,10 @@ module.exports = async (req, res) => {
       line = { ...line, 
         first: `${first.getHours()}:${first.getMinutes()}`, 
         last: `${last.getHours()}:${("0" + last.getMinutes()).slice(-2)}`, 
-        minGap: Math.round(minGap / 1000 / 60), 
-        maxGap: Math.round(maxGap / 1000 / 60) };
+        min_gap: Math.round(minGap / 1000 / 60), 
+        max_gap: Math.round(maxGap / 1000 / 60),
+        day_gap: Math.round(dayGap / 1000 / 60) };
+        line.times = times
       res.status(200).json( line );
     }
 

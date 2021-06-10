@@ -23,6 +23,16 @@ export default function StopHeaderCard({ line, setMarkers, setIsMap }) {
               {line.route_long_name}
             </Typography>
           </Grid>
+        </Grid> {/* end of row */}
+        <Grid item>
+          <Typography>
+            {`Opration Time: ${line.first} ~ ${line.last}`}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography>
+            {`Frequency: ${line.min_gap} ~ ${line.max_gap}`}
+          </Typography>
         </Grid>
       </Grid>
       <Grid item >
