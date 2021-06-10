@@ -1,7 +1,10 @@
 const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
-var request = require('request');
+const request = require('request');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
+
+const hhmmssToDate = require("../../utils/hhmmssToDate");
+
 dotenv.config();
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || "postgres://cabvlkfxydjwhn:c73832f43ee0d5ee23f9b68988e4c7babf241b364ceede7087279162254a12e5@ec2-54-224-120-186.compute-1.amazonaws.com:5432/daohhucgl2gdqd",
@@ -99,6 +102,7 @@ const getSchedules = async (agencyId, stopId, routeId) => {
         `WHERE r.route_id = '${routeId}' AND ` +
           `s.stop_id = '${stopId}' AND ` +
           `LOWER(s.agency_id) LIKE LOWER('${agencyId}')`
+          
   const client = await pool.connect();
   const result = await client.query(command);
   client.release();
@@ -106,11 +110,7 @@ const getSchedules = async (agencyId, stopId, routeId) => {
   let results = [];
   if (result && result.rows) {
     result.rows.forEach(update => {
-      let d = new Date();
-      let [hours, minutes, seconds] = update.arrival_time.split(':');
-      d.setHours(hours);
-      d.setMinutes(minutes);
-      d.setSeconds(seconds);
+      const d = hhmmssToDate(update.arrival_time)
       // if the bus is already gone, change it as tomorrow's one
       if (d < Date.now())
         d.setDate(d.getDate() + 1);

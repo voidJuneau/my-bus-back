@@ -27,14 +27,14 @@ module.exports = async (req, res) => {
   const offset = (page - 1) * limit;
 
   let command = 
-  "SELECT DISTINCT s.stop_id, s.stop_code, s.stop_name, s.stop_desc, s.stop_lat, s.stop_lon, s.agency_id " +
-      "FROM stop AS s " +
-      "JOIN stop_time AS st ON (s.stop_id = st.stop_id) " +
-      "JOIN trip AS t ON (st.trip_id = t.trip_id) " +
-      "JOIN route AS r ON (t.route_id = r.route_id)" +
-      `WHERE r.route_id = '${req.params.routeId}' AND ` +
-        `LOWER(s.agency_id) LIKE LOWER('${req.params.agencyId}') AND `
-        + "stop_code IS NOT NULL "
+  `SELECT DISTINCT s.stop_id, s.stop_code, s.stop_name, s.stop_desc, s.stop_lat, s.stop_lon, s.agency_id 
+      FROM stop AS s 
+      JOIN stop_time AS st ON (s.stop_id = st.stop_id) 
+      JOIN trip AS t ON (st.trip_id = t.trip_id) 
+      JOIN route AS r ON (t.route_id = r.route_id) 
+      WHERE r.route_id = '${req.params.routeId}' AND 
+        LOWER(s.agency_id) LIKE LOWER('${req.params.agencyId}') AND 
+        stop_code IS NOT NULL `
   if (query) { 
     command += `LOWER(stop_name) LIKE LOWER('%${query}%') OR ` +
                `LOWER(stop_desc) LIKE LOWER('%${query}%') `;
