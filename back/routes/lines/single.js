@@ -53,18 +53,13 @@ module.exports = async (req, res) => {
             INNER JOIN route AS r ON (t.route_id = r.route_id)
           WHERE r.route_id = '${routeId}' AND 
             s.stop_id = '${stopId}' AND 
-            stop_sequence = 1 AND
             LOWER(s.agency_id) LIKE LOWER('${agencyId}')
             ORDER BY departure_time`
 
       // all buses
       result = await client.query(command);
+      console.log(result.rows)
       const times = result.rows.map(t => hhmmssToDate(t.departure_time))
-      const firstInList = times[0];
-      const avgGap = times.reduce(
-          ([acc, last], x) => [acc + (x - last), x],
-          [0, firstInList]
-        ) [0] / times.length;
       // Assume the first and last bus of the day is as the schedule
       let first = times[0];
       let last = times[times.length-1];
@@ -78,7 +73,6 @@ module.exports = async (req, res) => {
       let maxGap = 0;
       for (let i=1; i<times.length; i++) {
         const gap = times[i] - times[i-1];
-        console.log(gap/1000/60, times[i-1], times[i])
         if (gap > dayGap) { // this two buses are last/first of two days
           maxGap = dayGap
           dayGap = gap
@@ -90,9 +84,12 @@ module.exports = async (req, res) => {
           minGap = gap
         }
       };
+      const firstHour = first.getHours()
+      const lastHour = last.getHours()
       line = { ...line, 
-        first: `${first.getHours()}:${first.getMinutes()}`, 
-        last: `${last.getHours()}:${("0" + last.getMinutes()).slice(-2)}`, 
+        first: `${firstHour}:${first.getMinutes()}`, 
+        // If the last hour is after midnight, add 24 for better understanding
+        last: `${lastHour > firstHour ? lastHour : lastHour+24}:${("0" + last.getMinutes()).slice(-2)}`, 
         min_gap: Math.round(minGap / 1000 / 60), 
         max_gap: Math.round(maxGap / 1000 / 60),
         day_gap: Math.round(dayGap / 1000 / 60) };
