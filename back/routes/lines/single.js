@@ -58,7 +58,6 @@ module.exports = async (req, res) => {
 
       // all buses
       result = await client.query(command);
-      console.log(result.rows)
       const times = result.rows.map(t => hhmmssToDate(t.departure_time))
       // Assume the first and last bus of the day is as the schedule
       let first = times[0];
@@ -78,7 +77,7 @@ module.exports = async (req, res) => {
           dayGap = gap
           first = times[i]
           last = times[i-1]
-        } else if (gap > maxGap) { // smaller then day gap, but larger then max gap
+        } else if (gap > maxGap) { // smaller than day gap, but larger then max gap
           maxGap = gap
         } else if (gap < minGap && gap > 1000 * 60 * 4) { // new min gap, ignoring pratical duplates
           minGap = gap
@@ -93,7 +92,7 @@ module.exports = async (req, res) => {
         min_gap: Math.round(minGap / 1000 / 60), 
         max_gap: Math.round(maxGap / 1000 / 60),
         day_gap: Math.round(dayGap / 1000 / 60) };
-        line.times = times
+      // line.times = times
       res.status(200).json( line );
     }
 
