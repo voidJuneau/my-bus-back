@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Card, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Card, createMuiTheme, Grid, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
+import AirportShuttleIcon from '@material-ui/icons/AirportShuttle';
 
 import CardMenu from "../../ui/CardMenu";
 import Logo from "../../ui/Logo";
+
+const theme = createMuiTheme({
+  typography: {
+    h6: {
+      fontSize: "1.1rem",
+      lineHeight: "1.3",
+    }
+  }
+});
 
 export default function ArrivalCard({ line, stop }) {
   const [ arrivals, setArrivals ] = useState([]);
@@ -16,53 +26,54 @@ export default function ArrivalCard({ line, stop }) {
   }, [])
   
   return (
-    <Grid container component={Card} alignItems="center" wrap="nowrap" >
-      <Grid item className={classes.listBoxItem}>
-        <Logo agencyId={line.agency_id} />
-      </Grid>
-      <Grid item container direction="column">
-        <Grid item container spacing={1} >
-          <Grid item>
-            <Typography>
-              {line.route_short_name}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography>
-              {line.route_long_name}
-            </Typography>
-          </Grid>
+    <ThemeProvider theme={theme} >
+      <Grid container component={Card} alignItems="center" wrap="nowrap" className={classes.listBox} >
+        <Grid item className={classes.listBoxItem}>
+          {/* <Logo agencyId={line.agency_id} /> */}
+          <AirportShuttleIcon />
         </Grid>
-        {arrivals.length>0 && ( // this fields displayed with the arrival data
-          <React.Fragment>
+        <Grid item container direction="column" className={classes.listBoxItem} >
+          <Grid item container spacing={1} >
             <Grid item>
-              <Typography>
-                Direction: {arrivals[0].tripHeadsign}
+              <Typography variant="h6" >
+                {line.route_short_name}
               </Typography>
             </Grid>
-            <Grid item container direction="row" wrap="nowrap" >
-              <Typography style={{marginRight:"0.2rem"}}>
-                Next bus: {getLeftMin(arrivals[0].arrival.time) === 0? "now" :
-                  `in ${getLeftMin(arrivals[0].arrival.time)} min`}
-              </Typography>
-              <Typography>
-                {getDelayMessage(arrivals[0].arrival.delay)}
+            <Grid item>
+              <Typography >
+                {line.route_long_name}
               </Typography>
             </Grid>
-            <Grid item container direction="row" wrap="nowrap" >
-              <Typography style={{marginRight:"0.2rem"}}>
-                Also: in {`${getLeftMin(arrivals[1].arrival.time)}`} min  
-              </Typography>
-              <Typography>
-                {getDelayMessage(arrivals[1].arrival.delay)}
-              </Typography>
-            </Grid>
-          </React.Fragment>)}
-      </Grid>
-      <Grid item>
+          </Grid>
+          {arrivals.length>0 && ( // this fields displayed with the arrival data
+            <React.Fragment>
+              <Grid item>
+                <Typography variant="body2" >
+                  Direction: {arrivals[0].tripHeadsign}
+                </Typography>
+              </Grid>
+              <Grid item container direction="row" wrap="nowrap" >
+                <Typography variant="body2" >
+                  Next bus: {getLeftMin(arrivals[0].arrival.time) === 0? "now" :
+                    `in ${getLeftMin(arrivals[0].arrival.time)} min`}
+                </Typography>
+                <Typography>
+                  {getDelayMessage(arrivals[0].arrival.delay)}
+                </Typography>
+              </Grid>
+              <Grid item container direction="row" wrap="nowrap" >
+                <Typography variant="body2" >
+                  Also: in {`${getLeftMin(arrivals[1].arrival.time)}`} min  
+                </Typography>
+                <Typography>
+                  {getDelayMessage(arrivals[1].arrival.delay)}
+                </Typography>
+              </Grid>
+            </React.Fragment>)}
+        </Grid>
         <CardMenu type="arrival" data={{line, stop}} />
       </Grid>
-    </Grid>
+    </ThemeProvider>
   )
 }
 

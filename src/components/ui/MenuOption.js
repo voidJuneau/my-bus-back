@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Grid, ListItem, ListItemText, makeStyles } from "@material-ui/core";
 
 export default function MenuOption({ children, label, path }) {
@@ -41,6 +41,6 @@ const useStyles = makeStyles(theme => ({
     "&.active": {
       background: "rgba(255,255,255,0.1)",
       border: "1px solid rgba(255,255,255,0.25)",
-    }
-  }
+    },
+  },
 }));

@@ -17,14 +17,13 @@ export default function StopListCard({ stop, setCenter, setMarkers, setIsMap, on
       body1: {},
       caption: {
         fontStyle: "italic",
-        // fontSize: "0.7rem"
       }
     }
   });
 
   return (
     <ThemeProvider theme={theme} >
-      <Link to={`/stop/${stop.agency_id}/${stop.stop_id}`} >
+      <Link to={`/stop/${stop.agency_id}/${stop.stop_id}`} className={classes.link} >
       <Grid container component={Card} 
         alignItems="center"
         className={cx(classes.lineBox, shadowStyles.root)} >
@@ -62,5 +61,11 @@ const useStyle = makeStyles(theme => ({
   listBoxItem: {
     padding: "8px",
     width: "auto"
+  },
+  link: {
+    textDecoration: "none",
+    "&:focus, &:hover, &:visited, &:link, &:active": {
+      textDecoration: "none",
+    }
   }
 }))

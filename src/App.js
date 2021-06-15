@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom'
-import { createMuiTheme, Grid, makeStyles, MuiThemeProvider } from '@material-ui/core';
+import { createMuiTheme, CssBaseline, Grid, makeStyles, MuiThemeProvider } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
 import amber from '@material-ui/core/colors/amber';
 
@@ -15,7 +15,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: amber["A200"]
-    }
+    },
   }
 });
 
@@ -29,6 +29,7 @@ const App = () => {
   return (
     <HashRouter>
       <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <Grid container>
           <Grid item xs={12} sm={12} md={4}
             className={isMap ? classes.hide : classes.show} >
