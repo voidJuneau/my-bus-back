@@ -5,13 +5,8 @@ import Pagination from '@material-ui/lab/Pagination';
 
 import LineHeaderCard from "./LineHeaderCard";
 import StopListCard from "../stops/StopListCard";
-
-const getCount = async (aId, lId) => {
-  return await (await fetch(`/api/stops/${aId}/route/${lId}/count`)).json();
-}
-const getStops = async (aId, lId, limit, page) => {
-  return await (await fetch(`/api/stops/${aId}/route/${lId}?limit=${limit}&page=${page}`)).json();
-}
+import { getStopCountOnLine, getStopsOnLine } from "../../../utils/api";
+import StopMarker from "../../map/StopMarker";
 
 export default function Stop({ setCenter, setMarkers, setIsMap }) {
   const classes = useStyles();
@@ -21,10 +16,16 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
   const [ stops, setStops ] = useState([]);
   const [ totalPages, setTotalPages ] = useState(0);
   const limit = 5;
-
+  useEffect(() => {
+    getStopsOnLine(aId, lId)
+    .then(stops => {
+      const markers = stops.map(s => <StopMarker key={s.stop_id} data={s} />);
+      setMarkers(markers);
+    });
+  }, [])
   useEffect(() => {
     // Get stops on that line
-    getStops(aId, lId, limit, page)
+    getStopsOnLine(aId, lId, limit, page)
     .then(stops => setStops(stops));
   }, [page, aId, lId])
 
@@ -35,7 +36,7 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
     .then(data => setLine(data));
     
     // Get count of stops for that line
-    getCount(aId, lId)
+    getStopCountOnLine(aId, lId)
     .then(res => setTotalPages(Math.ceil(res / limit)));
   }, [aId, lId])
   

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Grid, makeStyles } from "@material-ui/core";
 import StarOutlineOutlinedIcon from '@material-ui/icons/StarOutlineOutlined';
@@ -11,14 +11,14 @@ import StopMarker from "../map/StopMarker";
 
 export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }) {
   const classes = useStyle();
+
   const handleClickMapIcon = (e) => {
     e.persist(); 
     e.nativeEvent.stopImmediatePropagation();
     e.stopPropagation(); 
+    setIsMap(true);
     if (type === "stop") {
       setMarkers([(<StopMarker data={data} />)]);
-      setIsMap(true);
-      console.log("icon")
     }
   }
 
