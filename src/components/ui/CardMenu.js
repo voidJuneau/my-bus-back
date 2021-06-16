@@ -37,9 +37,9 @@ export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }
                 <KeyboardOutlinedIcon />
               </Grid>
               {/* stops - for line */}
-              <Grid item>
+              {/* <Grid item>
                 <RoomIcon />
-              </Grid>
+              </Grid> */}
             </React.Fragment>)}
           {/* lines - for arrival */}
           {type === "arrival" && (
@@ -51,7 +51,7 @@ export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }
             )}
           {/* on map - for line, stop (not on arrival) */}
           {(type === "line" || type === "stop" || type === "stopHeader" || type === "lineHeader") && (
-          <Grid>
+          <Grid className={(type === "stop" || type === "line") && classes.hideOnMobile}>
             <MapOutlinedIcon onClick={handleClickMapIcon} />
           </Grid>
           )}
@@ -67,5 +67,9 @@ const useStyle = makeStyles(theme => ({
     padding: "4px",
     zIndex: "10"
   },
-
+  hideOnMobile: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
+  }
 }))

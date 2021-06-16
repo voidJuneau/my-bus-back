@@ -21,6 +21,7 @@ export default function StopListCard({ stop, setCenter, setMarkers, setIsMap, on
     }
   });
 
+  // to prevent from being clicked on card menu click
   const history = useHistory();
   const handleClick = e => {
     const path = `/stop/${stop.agency_id}/${stop.stop_id}`;

@@ -16,7 +16,7 @@ export default function LineListCard({ line, setCenter, setMarkers, isMap, setIs
   // TODO(secondary): discussion
 
   return (
-    <Link to={`/line/${line.agency_id}/${line.route_id}`} >
+    <Link to={`/line/${line.agency_id}/${line.route_id}`} className={classes.link} >
       <Grid container component={Card} 
         alignItems="center"
         className={cx(classes.lineBox, shadowStyles.root)} >
@@ -43,5 +43,11 @@ const useStyle = makeStyles(theme => ({
   },
   listBoxItem: {
     padding: "8px"
+  },
+  link: {
+    textDecoration: "none",
+    "&:focus, &:hover, &:visited, &:link, &:active": {
+      textDecoration: "none",
+    },
   }
 }))
