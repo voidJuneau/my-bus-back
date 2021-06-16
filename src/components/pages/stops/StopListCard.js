@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import cx from 'clsx';
 import { Card, createMuiTheme, Grid, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import { useBouncyShadowStyles } from '@mui-treasury/styles/shadow/bouncy';
@@ -21,11 +21,17 @@ export default function StopListCard({ stop, setCenter, setMarkers, setIsMap, on
     }
   });
 
+  const history = useHistory();
+  const handleClick = e => {
+    const path = `/stop/${stop.agency_id}/${stop.stop_id}`;
+    history.push(path);
+  }
+
   return (
     <ThemeProvider theme={theme} >
-      <Link to={`/stop/${stop.agency_id}/${stop.stop_id}`} className={classes.link} >
       <Grid container component={Card} 
         alignItems="center"
+        onClick={handleClick}
         className={cx(classes.lineBox, shadowStyles.root)} >
           <Grid item className={classes.listBoxItem}>
             {onList ? (<RoomIcon />)
@@ -49,7 +55,6 @@ export default function StopListCard({ stop, setCenter, setMarkers, setIsMap, on
           <CardMenu type="stop" data={stop} 
             setCenter={setCenter} setMarkers={setMarkers} setIsMap={setIsMap} />
       </Grid>
-        </Link>
     </ThemeProvider>
   );
 }
@@ -66,6 +71,6 @@ const useStyle = makeStyles(theme => ({
     textDecoration: "none",
     "&:focus, &:hover, &:visited, &:link, &:active": {
       textDecoration: "none",
-    }
+    },
   }
 }))

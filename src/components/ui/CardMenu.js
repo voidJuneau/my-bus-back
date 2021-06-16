@@ -11,10 +11,14 @@ import StopMarker from "../map/StopMarker";
 
 export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }) {
   const classes = useStyle();
-  const handleClickMapIcon = () => {
+  const handleClickMapIcon = (e) => {
+    e.persist(); 
+    e.nativeEvent.stopImmediatePropagation();
+    e.stopPropagation(); 
     if (type === "stop") {
       setMarkers([(<StopMarker data={data} />)]);
       setIsMap(true);
+      console.log("icon")
     }
   }
 
@@ -60,6 +64,8 @@ export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }
 const useStyle = makeStyles(theme => ({
   boxMenu: {
     marginLeft: "auto",
-    padding: "4px"
-  }
+    padding: "4px",
+    zIndex: "10"
+  },
+
 }))

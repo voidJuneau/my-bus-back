@@ -32,7 +32,7 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
     // Get line info
     fetch(`/api/lines/${aId}/route/${lId}`)
     .then(res => res.json())
-    .then(data => {setLine(data); console.log(data)});
+    .then(data => setLine(data));
     
     // Get count of stops for that line
     getCount(aId, lId)
