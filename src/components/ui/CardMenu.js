@@ -21,6 +21,9 @@ export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }
       setMarkers([(<StopMarker data={data} />)]);
     }
   }
+  let mapIconClass;
+  if (type === "stop" || type === "line") mapIconClass = classes.hideOnMobile;
+  else if (type === "lineHeader") mapIconClass = classes.hideOnDesktop;
 
   return (
     <Grid item className={classes.boxMenu}>
@@ -51,7 +54,7 @@ export default function CardMenu({ type, data, setCenter, setMarkers, setIsMap }
             )}
           {/* on map - for line, stop (not on arrival) */}
           {(type === "line" || type === "stop" || type === "stopHeader" || type === "lineHeader") && (
-          <Grid className={(type === "stop" || type === "line") && classes.hideOnMobile}>
+          <Grid className={mapIconClass}>
             <MapOutlinedIcon onClick={handleClickMapIcon} />
           </Grid>
           )}
@@ -69,6 +72,11 @@ const useStyle = makeStyles(theme => ({
   },
   hideOnMobile: {
     [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
+  },
+  hideOnDesktop: {
+    [theme.breakpoints.up("md")]: {
       display: "none"
     }
   }

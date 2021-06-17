@@ -38,7 +38,7 @@ const App = () => {
           </Grid>
           <Grid item xs={12} sm={12} md={8}
             className={!isMap ? classes.hide : classes.show}>
-            <Map zoom={10} center={center} markers={markers}
+            <Map zoom={11.75} center={center} markers={markers}
               isMap={isMap} setIsMap={setIsMap} />
           </Grid>
         </Grid>

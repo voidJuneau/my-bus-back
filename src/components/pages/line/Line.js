@@ -19,7 +19,7 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
   useEffect(() => {
     getStopsOnLine(aId, lId)
     .then(stops => {
-      const markers = stops.map(s => <StopMarker key={s.stop_id} data={s} />);
+      const markers = stops.map(s => <StopMarker key={s.stop_id} data={s} isList />);
       setMarkers(markers);
     });
   }, [])

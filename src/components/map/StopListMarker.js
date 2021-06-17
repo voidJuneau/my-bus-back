@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { InfoWindow, Marker } from "@react-google-maps/api";
 import icon from "../../images/map-marker-solid.svg";
-// import { Link } from "react-router-dom";
 
-export default function StopMarker({ data, isList }) {
+
+
+export default function StopListMarker({ data }) {
   const [ shown, setShown ] = useState(false);
   const position={lat: parseFloat(data.stop_lat), lng: parseFloat(data.stop_lon)}
   
   const handleClick = () => setShown(!shown);
   return (
     <Marker position={position} key={data.stop_id + data.stop_name} onClick={handleClick}
-      icon={isList && icon} >
+      icon={icon} >
       {shown && (
         <InfoWindow position={position}>
           <div>
