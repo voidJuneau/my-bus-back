@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter } from 'react-router-dom'
 import { createMuiTheme, CssBaseline, Grid, makeStyles, MuiThemeProvider } from '@material-ui/core';
 import blue from '@material-ui/core/colors/blue';
@@ -21,11 +21,16 @@ const theme = createMuiTheme({
 
 const App = () => {
   const [ center, setCenter ] = useState({lat: 43.2551406, lng: -79.8732005});
+  const [ zoom, setZoom ] = useState(11.75);
   const [ markers, setMarkers ] = useState([]);
   const [ isMap, setIsMap ] = useState(false);
 
   const classes = useStyles();
   
+  useEffect(() => {
+    console.log(center)
+  }, [center])
+
   return (
     <HashRouter>
       <MuiThemeProvider theme={theme}>
@@ -33,12 +38,12 @@ const App = () => {
         <Grid container>
           <Grid item xs={12} sm={12} md={4}
             className={isMap ? classes.hide : classes.show} >
-            <Side setCenter={setCenter} setMarkers={setMarkers}
+            <Side setCenter={setCenter} setZoom={setZoom} setMarkers={setMarkers}
               isMap={isMap} setIsMap={setIsMap} />
           </Grid>
           <Grid item xs={12} sm={12} md={8}
             className={!isMap ? classes.hide : classes.show}>
-            <Map zoom={11.75} center={center} markers={markers}
+            <Map zoom={zoom} center={center} markers={markers}
               isMap={isMap} setIsMap={setIsMap} />
           </Grid>
         </Grid>

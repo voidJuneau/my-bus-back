@@ -10,7 +10,7 @@ import Stops from "../pages/stops/Stops";
 import Stop from "../pages/stop/Stop";
 import Member from "../pages/Member";
 
-export default function Side({ setCenter, setMarkers, isMap, setIsMap }) {
+export default function Side({ setCenter, setZoom, setMarkers, isMap, setIsMap }) {
   const classes = useStyles();
   return (
     <div> 
@@ -22,16 +22,16 @@ export default function Side({ setCenter, setMarkers, isMap, setIsMap }) {
           <Favourate />
         </Route>
         <Route path="/lines" >
-          <Lines setCenter={setCenter} setMarkers={setMarkers} setIsMap={setIsMap} />
+          <Lines setCenter={setCenter} setZoom={setZoom} setMarkers={setMarkers} setIsMap={setIsMap} />
         </Route>
         <Route path="/line/:aId/:lId" >
-          <Line setCenter={setCenter} setMarkers={setMarkers} setIsMap={setIsMap} />
+          <Line setCenter={setCenter} setZoom={setZoom} setMarkers={setMarkers} setIsMap={setIsMap} />
         </Route>
         <Route path="/stops" >
-          <Stops setCenter={setCenter} setMarkers={setMarkers} setIsMap={setIsMap} />
+          <Stops setCenter={setCenter} setZoom={setZoom} setMarkers={setMarkers} setIsMap={setIsMap} />
         </Route>
         <Route path="/stop/:aId/:sId" >
-          <Stop setCenter={setCenter} setMarkers={setMarkers} setIsMap={setIsMap} />
+          <Stop setCenter={setCenter} setZoom={setZoom} setMarkers={setMarkers} setIsMap={setIsMap} />
         </Route>
         <Route path="/member" >
           <Member />

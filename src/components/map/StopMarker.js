@@ -7,7 +7,7 @@ export default function StopMarker({ data, isList }) {
   const [ shown, setShown ] = useState(false);
   const position={lat: parseFloat(data.stop_lat), lng: parseFloat(data.stop_lon)}
   
-  const handleClick = () => setShown(!shown);
+  const handleClick = () => {setShown(!shown);console.log(data)};
   return (
     <Marker position={position} key={data.stop_id + data.stop_name} onClick={handleClick}
       icon={isList && icon} >
