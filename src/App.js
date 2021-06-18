@@ -26,10 +26,6 @@ const App = () => {
   const [ isMap, setIsMap ] = useState(false);
 
   const classes = useStyles();
-  
-  useEffect(() => {
-    console.log(center)
-  }, [center])
 
   return (
     <HashRouter>

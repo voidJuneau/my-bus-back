@@ -13,7 +13,7 @@ const getLines = async (aId, sId) => {
   return await (await fetch(`/api/lines/${aId}/stop/${sId}`)).json();
 }
 
-export default function Stop({ setCenter, setMarkers, setIsMap }) {
+export default function Stop({ setCenter, setZoom, setMarkers, setIsMap }) {
   const { aId, sId } = useParams();
   const [ stop, setStop ] = useState({});
   const [ lines, setLines ] = useState([]);
@@ -31,6 +31,13 @@ export default function Stop({ setCenter, setMarkers, setIsMap }) {
     .then(data => setLines(data));
   }, [])
 
+  useEffect(() => {
+    if (stop) {
+      setCenter({lat: stop.stop_lat, lng: stop.stop_lon});
+      setZoom(13);
+    }
+  }, [stop])
+  
   return (
     <Container>
       <Grid container direction="column" spacing={2}>
