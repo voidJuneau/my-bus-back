@@ -8,7 +8,8 @@ import RoomIcon from '@material-ui/icons/Room';
 import CardMenu from "../../ui/CardMenu";
 import Logo from "../../ui/Logo";
 
-export default function StopListCard({ stop, setCenter, setZoom, setMarkers, setIsMap, onList }) {
+export default function StopListCard({ stop, setCenter, setZoom, setMarkers, setIsMap, 
+                                      onStopMapMenuClick, onList }) {
   const classes = useStyle();
   const shadowStyles = useBouncyShadowStyles();
   
@@ -55,7 +56,8 @@ export default function StopListCard({ stop, setCenter, setZoom, setMarkers, set
           </Grid>
           <CardMenu type="stop" data={stop} 
             setCenter={setCenter} setZoom={setZoom} 
-            setMarkers={setMarkers} setIsMap={setIsMap} />
+            setMarkers={setMarkers} setIsMap={setIsMap}
+            onStopMapMenuClick={onStopMapMenuClick} onList={onList} />
       </Grid>
     </ThemeProvider>
   );

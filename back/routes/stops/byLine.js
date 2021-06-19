@@ -27,22 +27,26 @@ module.exports = async (req, res) => {
   const offset = (page - 1) * limit;
 
   let command = 
-  `SELECT DISTINCT s.stop_id, s.stop_code, s.stop_name, s.stop_desc, s.stop_lat, s.stop_lon, s.agency_id 
+  `SELECT * FROM (
+    SELECT DISTINCT ON (s.stop_id) s.stop_id, s.stop_code, s.stop_name, s.stop_desc, s.stop_lat, s.stop_lon, s.agency_id, st.stop_sequence, t.trip_id 
       FROM stop AS s 
-      JOIN stop_time AS st ON (s.stop_id = st.stop_id) 
-      JOIN trip AS t ON (st.trip_id = t.trip_id) 
-      JOIN route AS r ON (t.route_id = r.route_id) 
+      INNER JOIN stop_time AS st ON (s.stop_id = st.stop_id) 
+      INNER JOIN trip AS t ON (st.trip_id = t.trip_id) 
+      INNER JOIN route AS r ON (t.route_id = r.route_id) 
       WHERE r.route_id = '${req.params.routeId}' AND 
         LOWER(s.agency_id) LIKE LOWER('${req.params.agencyId}') AND 
         stop_code IS NOT NULL `
   if (query) { 
-    command += `LOWER(stop_name) LIKE LOWER('%${query}%') OR ` +
+    command += `AND (LOWER(stop_name) LIKE LOWER('%${query}%') OR ` +
                `LOWER(stop_desc) LIKE LOWER('%${query}%') `;
     if (parseInt(query)) {
       command += `OR stop_id = '${query}' OR ` +
-                  `stop_code = '${query}'`;
+                  `stop_code = '${query}' `;
     }
+    command += ") ";
   }
+  command += `ORDER BY s.stop_id ) AS t 
+              ORDER BY stop_sequence, t.trip_id `;
   if (limit)
     command += `LIMIT ${limit} OFFSET ${offset}`;
 

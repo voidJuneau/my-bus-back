@@ -9,7 +9,8 @@ import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
 
 import StopMarker from "../map/StopMarker";
 
-export default function CardMenu({ type, data, setCenter, setZoom, setMarkers, setIsMap }) {
+export default function CardMenu({ type, data, setCenter, setZoom, setMarkers, setIsMap,
+                                    onStopMapMenuClick, onList }) {
   const classes = useStyle();
 
   const handleClickMapIcon = (e) => {
@@ -18,9 +19,14 @@ export default function CardMenu({ type, data, setCenter, setZoom, setMarkers, s
     e.stopPropagation(); 
     setIsMap(true);
     if (type === "stop") {
+      console.log("a stop")
       setMarkers([(<StopMarker data={data} />)]);
       setCenter({lat: data.stop_lat, lng: data.stop_lon});
       setZoom(13);
+      if (onList && onStopMapMenuClick) {
+        console.log("a stop on a list")
+        onStopMapMenuClick(data);
+      }
     }
   }
   let mapIconClass;
